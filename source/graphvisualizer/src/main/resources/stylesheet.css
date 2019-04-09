@@ -1,0 +1,33 @@
+.list-view {
+    -fx-background-color: #212121;
+    -jfx-expanded: true;
+}
+
+
+.list-view .list-cell:hover {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #484848;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #616161;
+    -fx-text-fill: white;
+}
+
+.list-view .button {
+    -fx-text-fill: white;
+    -fx-background-color: #616161;
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: #4e342e;
+}
+.pane {
+    -fx-background-color: #212121;
+}
+.text-area {
+    -fx-border-width: 0;
+}

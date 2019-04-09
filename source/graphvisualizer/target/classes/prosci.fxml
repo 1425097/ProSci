@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6b615c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.tuwien.ifs.prosci.graphvisualization.Controller">
+   <children>
+      <HBox fx:id="hBox" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="vBox_link" style="-fx-background-color: #4f3221;">
+               <children>
+                  <JFXButton fx:id="title" alignment="BASELINE_LEFT" prefHeight="41.0" prefWidth="219.0" text="ProSci" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <graphic>
+                        <FontAwesomeIconView fill="#f5f0f0" glyphName="BARCODE" size="60" />
+                     </graphic>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="graphButton" alignment="BASELINE_LEFT" onMouseClicked="#overview" prefHeight="50.0" prefWidth="198.0" text="Overview" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <graphic>
+                        <FontAwesomeIconView fill="#ebe3e3" glyphName="USER_MD" size="20" text="" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="filesButton" alignment="BASELINE_LEFT" onMouseClicked="#files" prefHeight="50.0" prefWidth="240.0" text="Files" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <graphic>
+                        <FontAwesomeIconView fill="#f5eeee" glyphName="FILE_TEXT_ALT" size="20.0" text="" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="agentsButton" alignment="BASELINE_LEFT" onMouseClicked="#agents" prefHeight="50.0" prefWidth="240.0" text="Agents" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <graphic>
+                        <FontAwesomeIconView fill="#f2efef" glyphName="USER_MD" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="activitiesButton" alignment="BASELINE_LEFT" onMouseClicked="#activities" prefHeight="50.0" prefWidth="240.0" text="Activities" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <graphic>
+                        <FontAwesomeIconView fill="#fcf7f7" glyphName="BLACK_TIE" size="20" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <VBox fx:id="vBox_right" style="-fx-background-color: #212121;">
+               <children>
+                  <Pane fx:id="pane" prefHeight="605.0" prefWidth="805.0" style="-fx-background-color: #212121;">
+                     <children>
+                        <JFXListView fx:id="listView" prefHeight="600.0" prefWidth="783.0" style="-fx-background-color: #9e9e9e;" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
