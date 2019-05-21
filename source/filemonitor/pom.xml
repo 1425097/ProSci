@@ -5,7 +5,7 @@
 
 	<groupId>at.ac.tuwien.ifs.prosci.filemonitor</groupId>
 	<artifactId>filemonitor</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>filemonitor</name>
@@ -54,11 +54,33 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>4.7.0.201704051617-r</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>at.ac.tuwien.ifs.prosci</groupId>
+			<artifactId>provstarter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>at.ac.tuwien.ifs.prosci</groupId>
+			<artifactId>provstarter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>at.ac.tuwien.ifs.prosci</groupId>
+			<artifactId>provstarter</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 	</dependencies>

@@ -5,18 +5,16 @@ import at.ac.tuwien.ifs.prosci.provstarter.helper.StatusCode;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class Save {
     private ResourceBundle path_mapping = ResourceBundle.getBundle("path_mapping");
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
     @Autowired
     private ProsciProperties prosciProperties;
 

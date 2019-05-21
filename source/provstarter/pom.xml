@@ -5,7 +5,7 @@
 
 	<groupId>at.ac.tuwien.ifs.prosci</groupId>
 	<artifactId>provstarter</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>provstarter</name>

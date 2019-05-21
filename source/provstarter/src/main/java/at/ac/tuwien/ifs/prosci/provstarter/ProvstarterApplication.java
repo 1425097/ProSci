@@ -1,8 +1,7 @@
 package at.ac.tuwien.ifs.prosci.provstarter;
 
+import at.ac.tuwien.ifs.prosci.provstarter.command.FileMonitor;
 import at.ac.tuwien.ifs.prosci.provstarter.helper.StatusCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,10 +11,13 @@ import org.springframework.context.annotation.Bean;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @SpringBootApplication
 public class ProvstarterApplication {
-	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private final Logger LOGGER = LogManager.getLogger(this.getClass());
 	public static void main(String[] args) {
 		SpringApplication.run(ProvstarterApplication.class, args);
 	}
@@ -24,8 +26,10 @@ public class ProvstarterApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			BufferedReader br = null;
+			FileMonitor fileMonitor=new FileMonitor();
 			try {
 			Systemmenu systemmenu = (Systemmenu) ctx.getBean("systemmenu");
+				fileMonitor.start();
 
 				LOGGER.info("Start Prosci application.");
 				br = new BufferedReader(new InputStreamReader(System.in));
@@ -53,6 +57,7 @@ public class ProvstarterApplication {
 			} catch (IOException e) {
 				LOGGER.error(e.getMessage());
 			} finally {
+				fileMonitor.stop();
 				if (br != null) {
 					try {
 						br.close();
@@ -60,6 +65,7 @@ public class ProvstarterApplication {
 						e.printStackTrace();
 					}
 				}
+
 			}
 
 		};

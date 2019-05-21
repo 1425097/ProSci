@@ -1,6 +1,12 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization;
 
-import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.entities.*;
+import at.ac.tuwien.ifs.prosci.graphvisualization.exception.TechnicalException;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.CommandExtracter;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.Trace;
+import at.ac.tuwien.ifs.prosci.graphvisualization.provo.OntologyCreator;
+import at.ac.tuwien.ifs.prosci.graphvisualization.provo.VersionChecker;
 import com.google.common.base.Function;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -18,13 +24,12 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
-import at.ac.tuwien.ifs.prosci.graphvisualization.entities.*;
-import at.ac.tuwien.ifs.prosci.graphvisualization.exception.TechnicalException;
-import at.ac.tuwien.ifs.prosci.graphvisualization.helper.CommandExtracter;
-import at.ac.tuwien.ifs.prosci.graphvisualization.helper.Trace;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,9 +52,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
-import at.ac.tuwien.ifs.prosci.graphvisualization.provo.OntologyCreator;
-import at.ac.tuwien.ifs.prosci.graphvisualization.provo.VersionChecker;
-
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
@@ -57,10 +59,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 @Component
@@ -92,8 +92,11 @@ public class Controller implements Initializable {
     public JFXListView listView;
     @FXML
     public JFXButton title;
+    public TextField searchtext;
+    public JFXButton searchbutton;
     @Autowired
     OntologyHandler ontologyHandler;
+    private String mode="Overview";
 
     @Bean
     public GraphDrawing getGraphDrawing(){
@@ -162,7 +165,8 @@ public class Controller implements Initializable {
             wasRevisonOfs = ontologyHandler.readWasRevisonOf();
 
             list = new JFXListView<>();
-            initListView();
+
+            initListView(list);
 
             pane.setStyle("-fx-background-color: #212121;");
 
@@ -181,8 +185,8 @@ public class Controller implements Initializable {
         vBox_link.prefHeightProperty().bind(hBox.heightProperty());
         vBox_right.prefWidthProperty().bind(hBox.widthProperty().multiply(0.75));
         vBox_right.prefHeightProperty().bind(hBox.heightProperty());
-        listView.prefWidthProperty().bind(vBox_right.widthProperty());
-        listView.prefHeightProperty().bind(vBox_right.heightProperty());
+        listView.prefWidthProperty().bind(pane.widthProperty());
+        listView.prefHeightProperty().bind(pane.heightProperty());
         pane.prefWidthProperty().bind(vBox_right.widthProperty());
         pane.prefHeightProperty().bind(vBox_right.heightProperty());
         graphButton.prefWidthProperty().bind(vBox_link.widthProperty());
@@ -196,11 +200,9 @@ public class Controller implements Initializable {
         title.prefWidthProperty().bind(vBox_link.widthProperty());
         title.prefHeightProperty().bind(vBox_link.heightProperty().multiply(0.3));
         title.setDisable(true);
-
-
     }
 
-    private void initListView() {
+    private void initListView(JFXListView<Button> list) {
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -219,8 +221,8 @@ public class Controller implements Initializable {
             }
         });
 
-        list.prefHeightProperty().bind(vBox_right.heightProperty());
-        list.prefWidthProperty().bind(vBox_right.widthProperty());
+        list.prefHeightProperty().bind(pane.heightProperty());
+        list.prefWidthProperty().bind(pane.widthProperty());
     }
 
     private void configButton(Button button, int type) {
@@ -557,13 +559,16 @@ public class Controller implements Initializable {
     }
 
     public void overview(MouseEvent mouseEvent) throws IOException, ParserConfigurationException, SAXException, ParseException {
+        searchtext.setVisible(true);
+        searchbutton.setVisible(true);
+        mode="Overview";
         SwingNode swingNode=new SwingNode();
-        swingNode.setContent(graphDrawing.draw());
+        swingNode.setContent(graphDrawing.draw(false));
         pane.prefHeightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 try {
-                    swingNode.setContent(graphDrawing.draw());
+                    swingNode.setContent(graphDrawing.draw(false));
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 } catch (SAXException e) {
@@ -582,7 +587,7 @@ public class Controller implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 try {
-                    swingNode.setContent(graphDrawing.draw());
+                    swingNode.setContent(graphDrawing.draw(false));
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 } catch (SAXException e) {
@@ -605,9 +610,15 @@ public class Controller implements Initializable {
     }
 
     public void files(MouseEvent mouseEvent) throws  ParserConfigurationException, SAXException, IOException {
+        searchtext.setVisible(true);
+        searchbutton.setVisible(true);
+        mode="Files";
         entities = ontologyHandler.readEntites();
-        initListView();
+        initListView(list);
         list.getItems().clear();
+        ObservableList arrayList= FXCollections.observableArrayList();
+        SortedList<Button> sortedList;
+
         for (int i = 0; i < entities.size(); i++) {
             JFXButton button = new JFXButton();
             button.setText(entities.get(i).getId());
@@ -616,17 +627,29 @@ public class Controller implements Initializable {
             fontAwesomeIcon.setFill(Color.WHITE);
             configButton(button, 2);
             button.setGraphic(fontAwesomeIcon);
-            button.prefWidthProperty().bind(list.widthProperty().multiply(0.965));
-            list.getItems().add(button);
+            button.prefWidthProperty().bind(list.widthProperty().multiply(0.93));
+            arrayList.add(button);
+
         }
+        sortedList=new SortedList<Button>(arrayList);
+        sortedList.setComparator(new Comparator<Button>(){
+            @Override
+            public int compare(Button o1, Button o2) {
+                return o1.getText().compareToIgnoreCase(o2.getText());
+            }
+        });
+        list.getItems().addAll(sortedList);
         pane.getChildren().clear();
         pane.getChildren().add(list);
 
     }
 
     public void agents(MouseEvent mouseEvent) {
+        searchtext.setVisible(true);
+        searchbutton.setVisible(true);
+        mode="Agents";
         agents = ontologyHandler.readAgent();
-        initListView();
+        initListView(list);
         list.getItems().clear();
         for (int i = 0; i < agents.size(); i++) {
             JFXButton button = new JFXButton();
@@ -636,7 +659,7 @@ public class Controller implements Initializable {
             fontAwesomeIcon.setGlyphName("USER_MD");
             fontAwesomeIcon.setFill(Color.WHITE);
             button.setGraphic(fontAwesomeIcon);
-            button.prefWidthProperty().bind(list.widthProperty().multiply(0.965));
+            button.prefWidthProperty().bind(list.widthProperty().multiply(0.93));
             list.getItems().add(button);
         }
         pane.getChildren().clear();
@@ -644,12 +667,15 @@ public class Controller implements Initializable {
     }
 
     public void activities(MouseEvent mouseEvent) throws ParseException {
+        searchtext.setVisible(true);
+        searchbutton.setVisible(true);
+        mode="Activities";
         activities = ontologyHandler.readActivites();
-        initListView();
+        initListView(list);
         list.getItems().clear();
         for (int i = 0; i < activities.size(); i++) {
             JFXButton button = new JFXButton();
-            button.prefWidthProperty().bind(list.widthProperty().multiply(0.965));
+            button.prefWidthProperty().bind(list.widthProperty().multiply(0.93));
             button.setText(activities.get(i).getId());
             configButton(button, 1);
             FontAwesomeIconView fontAwesomeIcon = new FontAwesomeIconView();
@@ -661,6 +687,52 @@ public class Controller implements Initializable {
         }
         pane.getChildren().clear();
         pane.getChildren().add(list);
+    }
+
+    public void search(MouseEvent mouseEvent) throws ParserConfigurationException, SAXException, ParseException, IOException {
+        JFXListView<Button> toshow=new JFXListView<>();
+        initListView(toshow);
+        switch (mode){
+            case "Overview":
+                SwingNode swingNode=new SwingNode();
+                swingNode.setContent(graphDrawing.draw(true));
+                pane.getChildren().clear();
+                pane.getChildren().add(swingNode);
+                break;
+
+            case "Files":
+                for(Button b:list.getItems()){
+                    if(b.getText().contains(searchtext.getText())||((Entity)searchOntology(b.getText(),2)).getName().contains(searchtext.getText())){
+                        toshow.getItems().add(b);
+                    }
+                }
+                break;
+            case "Agents":
+                for(Button b:list.getItems()){
+                    if(b.getText().contains(searchtext.getText())||((Agent)searchOntology(b.getText(),3)).getDetail().contains(searchtext.getText())){
+                        toshow.getItems().add(b);
+                    }
+                }
+                break;
+            case "Activities":
+                for(Button b:list.getItems()){
+                    if(b.getText().contains(searchtext.getText())
+                            ||((Activity)searchOntology(b.getText(),1)).getCommand().contains(searchtext.getText())
+                            ||((Activity)searchOntology(b.getText(),1)).getStartTime().toString().contains(searchtext.getText())
+                            ||((Activity)searchOntology(b.getText(),1)).getEndTime().toString().contains(searchtext.getText())){
+                        toshow.getItems().add(b);
+                    }
+                }
+                break;
+
+        }
+
+        if(!mode.equals("Overview")){
+            pane.getChildren().clear();
+            pane.getChildren().add(toshow);
+        }
+
+
     }
 
     class StreamGobbler extends Thread {
@@ -765,6 +837,8 @@ public class Controller implements Initializable {
     }
 
     public void showDetail(Ontology o) {
+        searchtext.setVisible(false);
+        searchbutton.setVisible(false);
         VBox vBox = new VBox(10);
         TextArea baseInfo = new TextArea();
         baseInfo.prefHeightProperty().bind(vBox_right.heightProperty().multiply(0.3));
@@ -775,12 +849,10 @@ public class Controller implements Initializable {
         baseInfo.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas;  -fx-highlight-text-fill: #000000; -fx-text-fill: white; -fx-border-color: black;");
         Accordion accordion = new Accordion();
         accordion.setPrefWidth(pane.getWidth());
-        JFXButton rerun_button = new JFXButton("Restore");
+        Button rerun_button = new JFXButton("Restore");
         rerun_button.setPrefHeight(25);
-        rerun_button.prefWidthProperty().bind(vBox_right.widthProperty().multiply(0.96));
+        rerun_button.prefWidthProperty().bind(vBox_right.widthProperty());
         rerun_button.setAlignment(Pos.BOTTOM_CENTER);
-        rerun_button.layoutXProperty().bind(vBox_right.widthProperty().multiply(0.02));
-        rerun_button.layoutYProperty().bind(vBox_right.heightProperty().multiply(0.93));
         rerun_button.setTextFill(Color.WHITE);
         rerun_button.setStyle("-fx-background-color: #4f3221;");
         FontAwesomeIconView fontAwesomeIcon = new FontAwesomeIconView();
@@ -800,7 +872,7 @@ public class Controller implements Initializable {
             checkUsed(accordion, o.getId(), 1);
 
             addRerunButtonHandler(rerun_button, (Activity) o);
-            //pane.getChildren().add(rerun_button);
+
         } else if (o instanceof Entity) {
             baseInfo.setText("ID: " + o.getId() + "\n" +
                     "Path: " + ((Entity) o).getName() + "\n");
@@ -810,7 +882,7 @@ public class Controller implements Initializable {
             checkWasGeneratedBy(accordion, o.getId(), 1);
             checkWasRevisionOf(accordion, o.getId());
             addLoadFileButtonHandler(rerun_button, (Entity) o);
-            pane.getChildren().add(rerun_button);
+
         } else if (o instanceof Agent) {
             baseInfo.setText("ID: " + o.getId() + "\n" +
                     "Description: \n" + ((Agent) o).getDetail() + "\n");
@@ -825,6 +897,12 @@ public class Controller implements Initializable {
         }
         vBox.getChildren().add(baseInfo);
         vBox.getChildren().add(accordion);
+        if(o instanceof Entity){
+            vBox.getChildren().add(rerun_button);
+        }
+
+
+
         pane.getChildren().add(vBox);
 
 
@@ -842,10 +920,10 @@ public class Controller implements Initializable {
 
         VisualizationViewer<String, String> vv;
 
-        public VisualizationViewer<String, String> draw() throws ParserConfigurationException, SAXException, IOException, ParseException {
+        public VisualizationViewer<String, String> draw(boolean withSearch) throws ParserConfigurationException, SAXException, IOException, ParseException {
 
             setLayout(new BorderLayout());
-            Layout<String, String> layout = new FRLayout2<>(getGraph());
+            Layout<String, String> layout = new FRLayout2<>(getGraph(withSearch));
 
             vv = new VisualizationViewer<String, String>(new DefaultVisualizationModel<>(layout), new Dimension((int)pane.getWidth(), (int)pane.getHeight()));
             vv.setBackground(java.awt.Color.white);
@@ -861,61 +939,111 @@ public class Controller implements Initializable {
             return vv;
         }
 
-        private Graph getGraph() throws ParserConfigurationException, SAXException, IOException, ParseException {
+        private Graph getGraph(boolean withSearch) throws ParserConfigurationException, SAXException, IOException, ParseException {
             ontologyHandler.readElements();
             entities = ontologyHandler.readEntites();
             agents = ontologyHandler.readAgent();
             activities = ontologyHandler.readActivites();
 
             Graph<String, String> g = new SparseMultigraph<String, String>();
+            ArrayList<String> color_red=new ArrayList<>();
             for (Entity entity : entities) {
-                g.addVertex(entity.getId());
+                if(withSearch){
+                    if(entity.getId().contains(searchtext.getText())||(entity.getName().contains(searchtext.getText()))){
+                        g.addVertex(entity.getId()+"*");
+                        color_red.add(entity.getId());
+                    }
+                    else {
+                        g.addVertex(entity.getId());
+                    }
+
+                }else {
+                    g.addVertex(entity.getId());
+                }
             }
             for (Agent agent : agents) {
-                g.addVertex(agent.getId());
+                if(withSearch){
+                    if(agent.getId().contains(searchtext.getText())||(agent.getDetail().contains(searchtext.getText()))){
+                        g.addVertex(agent.getId()+"*");
+                        color_red.add(agent.getId());
+                    }else {
+                        g.addVertex(agent.getId());
+                    }
+
+
+                }else {
+                    g.addVertex(agent.getId());
+                }
             }
             for (Activity activity : activities) {
-                g.addVertex(activity.getId());
+                if(withSearch){
+                    if(activity.getId().contains(searchtext.getText())
+                            ||(activity.getCommand().contains(searchtext.getText()))
+                            ||activity.getStartTime().toString().contains(searchtext.getText())
+                            ||activity.getEndTime().toString().contains(searchtext.getText())){
+                        g.addVertex(activity.getId()+"*");
+                        color_red.add(activity.getId());
+                    }else {
+                        g.addVertex(activity.getId());
+                    }
+
+                }else {
+                    g.addVertex(activity.getId());
+                }
             }
             int count = 0;
             for (WasAssociatedWith wasAssociatedWith : ontologyHandler.readWasAssociatedWith()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasAssociatedWith-" + count,
-                        wasAssociatedWith.getActivity().getId(), wasAssociatedWith.getAgent().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasAssociatedWith.getActivity().getId())?wasAssociatedWith.getActivity().getId()+"*":wasAssociatedWith.getActivity().getId(),
+                        color_red.contains(wasAssociatedWith.getAgent().getId())?wasAssociatedWith.getAgent().getId()+"*":wasAssociatedWith.getAgent().getId(), EdgeType.UNDIRECTED);
                 count++;
             }
             for (WasAttributedTo wasAttributedTo : ontologyHandler.readWasAttributedTo()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasAttributedTo-" + count,
-                        wasAttributedTo.getAgent().getId(), wasAttributedTo.getAgent().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasAttributedTo.getAgent().getId())?wasAttributedTo.getAgent().getId()+"*":wasAttributedTo.getAgent().getId(),
+                        color_red.contains(wasAttributedTo.getEntity().getId())?wasAttributedTo.getEntity().getId()+"*":wasAttributedTo.getEntity().getId(), EdgeType.UNDIRECTED);
                 count++;
             }
             for (WasDerivedFrom wasDerivedFrom : ontologyHandler.readWasDerivedFrom()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasDerivedFrom-" + count,
-                        wasDerivedFrom.getGeneratedEntity().getId(), wasDerivedFrom.getUsedEntity().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasDerivedFrom.getGeneratedEntity().getId())?wasDerivedFrom.getGeneratedEntity().getId()+"*":wasDerivedFrom.getGeneratedEntity().getId(),
+                        color_red.contains(wasDerivedFrom.getUsedEntity().getId())?wasDerivedFrom.getUsedEntity().getId()+"*":wasDerivedFrom.getUsedEntity().getId(), EdgeType.UNDIRECTED);
                 count++;
             }
 
             for (WasGeneratedBy wasGeneratedBy : ontologyHandler.readWasGeneratedBy()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasGeneratedBy-" + count,
-                        wasGeneratedBy.getActivity().getId(), wasGeneratedBy.getEntity().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasGeneratedBy.getActivity().getId())?wasGeneratedBy.getActivity().getId()+"*":wasGeneratedBy.getActivity().getId(),
+                        color_red.contains(wasGeneratedBy.getEntity().getId())?wasGeneratedBy.getEntity().getId()+"*":wasGeneratedBy.getEntity().getId(), EdgeType.UNDIRECTED);
                 count++;
             }
             for (WasInformedBy wasInformedBy : ontologyHandler.readWasInformedBy()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasInformedBy-" + count,
-                        wasInformedBy.getInformant().getId(), wasInformedBy.getInformed().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasInformedBy.getInformant().getId())?wasInformedBy.getInformant().getId()+"*":wasInformedBy.getInformant().getId(),
+                        color_red.contains(wasInformedBy.getInformed().getId())?wasInformedBy.getInformed().getId()+"*":wasInformedBy.getInformed().getId(),EdgeType.UNDIRECTED);
                 count++;
             }
             for (WasRevisonOf wasRevisonOf : ontologyHandler.readWasRevisonOf()) {
 
                 ((SparseMultigraph<String, String>) g).addEdge("wasRevisonOf-" + count,
-                        wasRevisonOf.getGeneratedEntity().getId(), wasRevisonOf.getUsedEntity().getId(), EdgeType.DIRECTED);
+                        color_red.contains(wasRevisonOf.getGeneratedEntity().getId())?wasRevisonOf.getGeneratedEntity().getId()+"*":wasRevisonOf.getGeneratedEntity().getId(),
+                        color_red.contains(wasRevisonOf.getUsedEntity().getId())?wasRevisonOf.getUsedEntity().getId()+"*":wasRevisonOf.getUsedEntity().getId(),
+                        EdgeType.UNDIRECTED);
                 count++;
             }
+            for (Used used : ontologyHandler.readUsed()) {
 
+                ((SparseMultigraph<String, String>) g).addEdge("used-" + count,
+                        color_red.contains(used.getActivity().getId())?used.getActivity().getId()+"*":used.getActivity().getId(),
+                        color_red.contains(used.getEntity().getId())?used.getEntity().getId()+"*":used.getEntity().getId(),
+                        EdgeType.UNDIRECTED);
+                count++;
+            }
             return g;
         }
 
@@ -924,12 +1052,14 @@ public class Controller implements Initializable {
             @NullableDecl
             @Override
             public Paint apply(@NullableDecl String s) {
-                if (s.contains("Activity")) {
-                    return new java.awt.Color(178, 235, 242);
+                if(s.contains("*")){
+                    return new java.awt.Color(252, 51, 51);
+                } else if(s.contains("Activity")) {
+                    return new java.awt.Color(102, 178, 255);
                 } else if (s.contains("Agent")) {
-                    return new java.awt.Color(19, 155, 151);
+                    return new java.awt.Color(255, 153, 204);
                 } else {
-                    return new java.awt.Color(15, 39, 35);
+                    return new java.awt.Color(153, 153, 255);
                 }
             }
         }
@@ -949,12 +1079,16 @@ public class Controller implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        if (v.toString().contains("Activity")) {
-                            showDetail(searchOntology(v.toString(), 1));
-                        } else if (v.toString().contains("Agent")) {
-                            showDetail(searchOntology(v.toString(), 3));
+                        String name=v.toString();
+                        if(name.contains("*")){
+                            name=name.replace("*","");
+                        }
+                        if (name.contains("Activity")) {
+                            showDetail(searchOntology(name, 1));
+                        } else if (name.contains("Agent")) {
+                            showDetail(searchOntology(name, 3));
                         } else {
-                            showDetail(searchOntology(v.toString(), 2));
+                            showDetail(searchOntology(name, 2));
                         }
                     }
                 });

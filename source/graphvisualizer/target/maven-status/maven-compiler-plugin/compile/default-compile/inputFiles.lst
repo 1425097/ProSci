@@ -13,9 +13,11 @@
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java
+/home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasRevisonOf.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Ontology.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasGeneratedBy.java
+/home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/exception/TechnicalException.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java

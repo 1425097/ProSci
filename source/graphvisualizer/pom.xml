@@ -6,7 +6,7 @@
 
     <groupId>at.ac.tuwien.ifs.prosci.graphvisualizer</groupId>
     <artifactId>graphvisualizer</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -121,11 +121,6 @@
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>8.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>at.ac.tuwien.ifs.prosci</groupId>
-            <artifactId>provstarter</artifactId>
-            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

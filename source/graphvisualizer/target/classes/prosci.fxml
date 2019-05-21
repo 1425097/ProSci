@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -80,6 +81,22 @@
                         <JFXListView fx:id="listView" prefHeight="600.0" prefWidth="783.0" style="-fx-background-color: #9e9e9e;" />
                      </children>
                   </Pane>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="searchtext" prefHeight="48.0" prefWidth="578.0" />
+                        <JFXButton fx:id="searchbutton" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="48.0" prefWidth="210.0" text="Search" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                           <graphic>
+                              <FontAwesomeIconView fill="#fcf7f7" glyphName="SEARCH" size="20.0" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

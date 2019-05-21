@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="provstarter">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../provstarter" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../provstarter/src/main/java" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../provstarter" recursive="false" />
+  </library>
+</component>

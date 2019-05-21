@@ -2,7 +2,6 @@ package at.ac.tuwien.ifs.prosci.provstarter.command;
 
 import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 public class Show {
     @Autowired

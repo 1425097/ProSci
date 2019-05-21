@@ -2,16 +2,15 @@ package at.ac.tuwien.ifs.prosci.provstarter;
 
 import at.ac.tuwien.ifs.prosci.provstarter.command.*;
 import at.ac.tuwien.ifs.prosci.provstarter.helper.StatusCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Component
 public class Systemmenu {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
 
     @Autowired
     private Workspace workspace;
@@ -20,14 +19,14 @@ public class Systemmenu {
     @Autowired
     private GraphicStarter graphicStarter;
     @Autowired
-    private FileMonitor fileMonitor;
-    @Autowired
     private Save save;
     @Autowired
     private Show show;
+    @Autowired
+    private FileMonitor fileMonitor;
 
     public StatusCode option(String argument) {
-        LOGGER.info("receive Command: "+argument);
+        LOGGER.debug("receive Command: "+argument);
         try {
             String[] arguments = argument.split(" ");
             StatusCode statusCode=null;
@@ -35,10 +34,10 @@ public class Systemmenu {
                 case "workspace":
                     if (arguments.length == 3) {
                         statusCode=workspace.initWorkspace(arguments[1], arguments[2]);
-                        fileMonitor.start();
+                       // fileMonitor.start();
                     } else if (arguments.length == 2) {
                         statusCode=workspace.initWorkspace(arguments[1], null);
-                        fileMonitor.start();
+                        //fileMonitor.start();
                     } else {
                         System.out.println("incorrect arguments: workspace [workspace name] [workspace path]");
                         return StatusCode.FAIL_SYSTEM;
@@ -47,7 +46,7 @@ public class Systemmenu {
                 case "start":
                     statusCode=start.startXterm();
                     break;
-                case "graphic":
+                case "graph":
                     statusCode=graphicStarter.start();
                     break;
                 case "save":
@@ -63,7 +62,7 @@ public class Systemmenu {
                     System.out.println("start tracing workspace");
                     System.out.println("start\n");
                     System.out.println("start graphic visualization for current workspace");
-                    System.out.println("graphic\n");
+                    System.out.println("graph\n");
                     System.out.println("save files in current workspace");
                     System.out.println("save\n");
                     System.out.println("show existing workspaces");

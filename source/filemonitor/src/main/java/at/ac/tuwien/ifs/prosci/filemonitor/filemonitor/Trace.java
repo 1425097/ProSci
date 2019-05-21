@@ -1,57 +1,79 @@
 package at.ac.tuwien.ifs.prosci.filemonitor.filemonitor;
-
-import at.ac.tuwien.ifs.prosci.filemonitor.filemonitor.Exception.PropertiesReaderException;
-import at.ac.tuwien.ifs.prosci.filemonitor.filemonitor.util.PropertiesReader;
+import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 import java.io.*;
+import java.nio.file.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import com.itextpdf.text.pdf.PdfReader;
 @Component
 public class Trace implements Runnable {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
     private Git git_log;
     private Git git_input;
-    private String commitAndLastCommit="";
-    private String logToCommandFile="";
     private final static DateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
     private ResourceBundle path_mapping = ResourceBundle.getBundle("path_mapping");
 
-    @Autowired
-    private PropertiesReader propertiesReader;
-
-    private String commitVersion(String id) throws IOException, GitAPIException, PropertiesReaderException {
+    private ProsciProperties prosciProperties;
+    private String lastCommit="";
+    private String commitVersion() throws GitAPIException {
         String commitAndLastCommit = "";
         Status status = git_input.status().call();
-        int count = 1;
+        Status status_log = git_input.status().call();
+        boolean added=false;
         if (!status.isClean()) {
-            git_input.add().addFilepattern(".").call();
-            git_input.commit().setAll(true).setMessage(id).call();
-            LOGGER.info("commit done");
-            count=2;
-        }
-        try {
-            Iterable<RevCommit> logs = git_input.log()
-                    .call();
-            for (RevCommit rev : logs) {
-                LOGGER.info("Commit: " + rev + ", name: " + rev.getName() + ", id: " + rev.getId().getName());
-                commitAndLastCommit = commitAndLastCommit + rev.getId().getName() + "|";
-                count--;
-                if (count == 0) break;
+            LOGGER.info("1  "+ new Date());
+            for(String s:status_log.getUntracked()){
+                boolean add=true;
+                try {
+                    if(s.substring(s.lastIndexOf(".")+1).equals("pdf")) {
+                        PdfReader pdfReader = new PdfReader(prosciProperties.readProperties("workspace.current") + path_mapping.getString("input")+s);
+                        String textFromPdfFilePageOne = PdfTextExtractor.getTextFromPage(pdfReader, 1);
+                    }
+                } catch ( Exception e ) {
+                    add=false;
+                }
+                if(add) {
+                    git_input.add().addFilepattern(s).call();
+                    added=true;
+                }
+            }for(String s:status_log.getModified()){
+                boolean add=true;
+                try {
+                    if(s.substring(s.lastIndexOf(".")+1).equals("pdf")) {
+                        PdfReader pdfReader = new PdfReader(prosciProperties.readProperties("workspace.current") + path_mapping.getString("input")+s);
+                        String textFromPdfFilePageOne = PdfTextExtractor.getTextFromPage(pdfReader, 1);
+                    }
+                } catch ( Exception e ) {
+                    add=false;
+                }
+                if(add) {
+                    git_input.add().addFilepattern(s).call();
+                    added=true;
+                }
             }
-
-        }catch (Exception e){
-            return commitAndLastCommit;
+            LOGGER.info("2  "+new Date());
         }
+
+        if(added){
+            LOGGER.info("3  "+new Date());
+            RevCommit commit=git_input.commit().setMessage("commit files").call();
+            if(commit.getId().getName().length()>0) {
+                commitAndLastCommit = commit.getId().getName() + "|" + lastCommit + "|";
+                lastCommit = commit.getId().getName();
+            }
+            LOGGER.info("4  "+new Date());
+        } else {
+            commitAndLastCommit = lastCommit + "|";
+        }
+
         return commitAndLastCommit;
 
     }
@@ -59,47 +81,39 @@ public class Trace implements Runnable {
     @Override
     public void run() {
         try {
+            readPropertyFile();
             initLogRepository();
             while (true) {
-                Status status_log = git_log.status().call();
-                if (status_log.getUntracked().size() > 0) {
-                    TreeSet<String> logs=new TreeSet<>(new LogComp());
-                    logs.addAll(status_log.getUntracked());
-                    int count=0;
-                    logToCommandFile="";
-                    List<String> ids=new ArrayList<>();
-                    for(String id:logs){
-                        if(count==0){
-                            String commitVersion=commitVersion(id);
-                            if(commitVersion.length()>0){
-                                commitAndLastCommit = commitVersion;
-                            }
-                            logToCommandFile=logToCommandFile+format.format(new Date()) + "|" + id.replace("/","|") +"|" + commitAndLastCommit + "\n";
-                            count++;
-                        }else{
-                            logToCommandFile=logToCommandFile+format.format(new Date()) + "|" + id.replace("/","|") + "|" + commitAndLastCommit + "\n";
 
-                            logToCommandFile=logToCommandFile+format.format(new Date()) + "|" + id.replace("/","|") + "|" + commitAndLastCommit + "\n";
+                WatchService watchService
+                        = FileSystems.getDefault().newWatchService();
 
-                        }
-                        ids.add(id);
-
-                    }
-                    fileWriter(logToCommandFile);
-                    for(String id: ids) {
-                        git_log.add().addFilepattern(id).call();
-                    }
-                    LOGGER.info("Writing finish.");
-
-                    git_log.commit().setMessage(commitAndLastCommit).call();
+                Path path = Paths.get(prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.trace.log"));
+                for (File f : path.toFile().listFiles()) {
+                    f.toPath().register(watchService,
+                            StandardWatchEventKinds.ENTRY_CREATE);
                 }
 
+                WatchKey key;
+                while ((key = watchService.take()) != null) {
+                    for (WatchEvent<?> event : key.pollEvents()) {
+                        String logToCommandFile="";
+                        String commitVersion=commitVersion();
+                        logToCommandFile=logToCommandFile+format.format(new Date()) +"|"+ Path dir = keys.get(key);+ "|" +event.context().toString() +"|" + commitVersion + "\n";
+                        System.out.printf("kind=%s, count=%d, context=%s Context type=%s%n ",
+                                event.kind(),
+                                event.count(), event.context(),
+                                ((Path) event.context()).getClass());
+                        fileWriter(logToCommandFile);
+                    }
+                    key.reset();
+                }
             }
-        } catch (PropertiesReaderException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoFilepatternException e) {
+
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
@@ -108,28 +122,31 @@ public class Trace implements Runnable {
     }
 
 
-    private void initLogRepository() throws PropertiesReaderException, IOException, GitAPIException {
-        Properties properties = propertiesReader.readProsciProperties();
-        git_log = Git.open(new File(properties.getProperty("workspace.current") + path_mapping.getString("prosci.trace.log")));
-        git_input = Git.open(new File(properties.getProperty("workspace.current") + path_mapping.getString("input")));
+    private void initLogRepository() throws IOException {
+        git_log = Git.open(new File(prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.trace.log")));
+        git_input = Git.open(new File(prosciProperties.readProperties("workspace.current") + path_mapping.getString("input")));
 
     }
 
+    private void readPropertyFile(){
+        prosciProperties=new ProsciProperties();
+
+    }
+
+    private void fileWriter(String logToCommandFile) throws  IOException {
+        FileWriter fileWriter = new FileWriter(prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.trace.command"), true);
+        fileWriter.write(logToCommandFile);
+        fileWriter.close();
+    }
     class LogComp implements Comparator<String>{
 
         @Override
         public int compare(String e1, String e2) {
-                int e1_num = Integer.parseInt(e1.split("\\.")[2]);
-                int e2_num = Integer.parseInt(e2.split("\\.")[2]);
-                return e1_num-e2_num;
+            int e1_num = Integer.parseInt(e1.split("\\.")[2]);
+            int e2_num = Integer.parseInt(e2.split("\\.")[2]);
+            return e1_num-e2_num;
 
         }
-    }
-
-    private void fileWriter(String logToCommandFile) throws PropertiesReaderException, IOException {
-        FileWriter fileWriter = new FileWriter(propertiesReader.readProsciProperties().getProperty("workspace.current") + path_mapping.getString("prosci.trace.command"), true);
-        fileWriter.write(logToCommandFile);
-        fileWriter.close();
     }
 
 

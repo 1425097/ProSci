@@ -4,10 +4,9 @@ package at.ac.tuwien.ifs.prosci.provstarter.command;
 import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
 import at.ac.tuwien.ifs.prosci.provstarter.helper.StatusCode;
 import at.ac.tuwien.ifs.prosci.provstarter.helper.LogCreator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 public class Start {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LogManager.getLogger(this.getClass());
     @Autowired
     ProsciProperties prosciProperties;
     @Autowired

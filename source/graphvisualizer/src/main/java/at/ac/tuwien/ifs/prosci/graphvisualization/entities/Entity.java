@@ -1,6 +1,6 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization.entities;
 
-import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;

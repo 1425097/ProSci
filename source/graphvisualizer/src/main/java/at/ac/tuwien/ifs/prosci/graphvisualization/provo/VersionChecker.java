@@ -1,5 +1,5 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization.provo;
-import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -41,10 +41,6 @@ public class VersionChecker {
         head = ObjectId.fromString(revWalk.parseCommit(head).getTree().getName());
         revWalk.close();
 
-
-        LOGGER.info(oldHead.getName());
-
-        System.out.println("Printing diff between tree: " + oldHead + " and " + head);
         List<DiffEntry> diffs;
         // prepare the two iterators to compute the diff between
         try (ObjectReader reader = git.getRepository().newObjectReader()) {
@@ -60,7 +56,7 @@ public class VersionChecker {
                     .setOldTree(oldTreeIter)
                     .call();
 
-            LOGGER.debug("Find diffs: " + diffs);
+
 
         }
 
@@ -103,8 +99,6 @@ public class VersionChecker {
         OutputStream out = new FileOutputStream(dest);
         loader.copyTo(out);
         out.close();
-        LOGGER.info("File copied from to " + dest);
-
     }
 
     public Date getCommitTime(String commitID) throws IOException {

@@ -28,7 +28,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="at.ac.tuwien.ifs.prosci.proscistarter" level="info" additivity="false">
+        <Logger name="at.ac.tuwien.ifs.prosci.graphvisualization" level="info" additivity="false">
             <AppenderRef ref="App-File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>

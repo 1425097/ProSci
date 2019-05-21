@@ -1,6 +1,7 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization;
 import at.ac.tuwien.ifs.prosci.graphvisualization.entities.*;
-import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.provo.VersionChecker;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import at.ac.tuwien.ifs.prosci.graphvisualization.provo.VersionChecker;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,10 +48,9 @@ public class OntologyHandler {
         doc.getDocumentElement().normalize();
     }
 
-    public List<Entity> readEntites() throws ParserConfigurationException, SAXException, IOException {
+    public List<Entity> readEntites() {
         List<Entity> entities = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:entity");
-        logger.info("Length entites: " + nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
 
@@ -61,7 +60,7 @@ public class OntologyHandler {
                 if (id.length() > 0) {
                     String value = eElement.getElementsByTagName("prov:value").item(0).getTextContent();
                     String[] valueList=value.split("\n");
-                    Entity entity = new Entity(id.replace("_2F","/").replace("__","_"), valueList[0].replace("_2F","/").replace("__","_"), valueList[1],null);
+                    Entity entity = new Entity(id.replace("_2F","/").substring(7), valueList[0].replace("_2F","/"), valueList[1],null);
                     entities.add(entity);
                     entitiesMap.put(entity.getId(), entity);
 
@@ -75,7 +74,6 @@ public class OntologyHandler {
     public List<Activity> readActivites() throws ParseException {
         List<Activity> activities = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:activity");
-        logger.info("Length activities: " + nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
 
@@ -85,19 +83,23 @@ public class OntologyHandler {
 
                 if (id.length() > 0) {
                     String start = eElement.getElementsByTagName("prov:startTime").item(0).getTextContent();
-                    String end = eElement.getElementsByTagName("prov:endTime").item(0).getTextContent();
+                    String end="";
+                    try {
+                        end = eElement.getElementsByTagName("prov:endTime").item(0).getTextContent();
+                    }catch (Exception e){
+
+                    }
                     String label = eElement.getElementsByTagName("prov:label").item(0).getTextContent();
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                     Date startDate = format.parse(start.replace("T", " "));
-                    Date endDate = format.parse(end.replace("T", " "));
-                    Activity activity = new Activity(id, label, null, startDate, endDate, new File(prosciProperties.readProperties("path.prosci.trace")  + "/systeminfo.txt"));
+                    Date endDate = end.length()>0?format.parse(end.replace("T", " ")):null;
+                    Activity activity = new Activity("Activity-"+id.replace("_2F","/").substring(7), label, null, startDate, endDate, new File(prosciProperties.readProperties("path.prosci.trace")  + "/systeminfo.txt"));
 
                     activities.add(activity);
                     activitiesMap.put(activity.getId(), activity);
                 }
             }
         }
-        logger.info("Reading activities: "+activities.size());
         return activities;
     }
 
@@ -111,7 +113,7 @@ public class OntologyHandler {
                 String id = eElement.getAttribute("prov:id");
                 if (id.length() > 0) {
                     String label = eElement.getElementsByTagName("prov:label").item(0).getTextContent();
-                    Agent agent = new Agent("Agent-"+id, label);
+                    Agent agent = new Agent("Agent-"+id.substring(7), label);
                     agents.add(agent);
                     agentsMap.put(agent.getId(), agent);
                 }
@@ -124,7 +126,6 @@ public class OntologyHandler {
     public List<WasAssociatedWith> readWasAssociatedWith() {
         List<WasAssociatedWith> wasAssociatedWiths = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasAssociatedWith");
-        logger.info("Length wasAssociatedWith:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -140,7 +141,6 @@ public class OntologyHandler {
     public List<WasDerivedFrom> readWasDerivedFrom() {
         List<WasDerivedFrom> wasDerivedFroms = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasDerivedFrom");
-        logger.info("Length wasDerivedFrom:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
 
@@ -157,7 +157,6 @@ public class OntologyHandler {
     public List<WasGeneratedBy> readWasGeneratedBy() {
         List<WasGeneratedBy> wasGeneratedBys = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasGeneratedBy");
-        logger.info("Length wasGeneratedBy:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -176,7 +175,6 @@ public class OntologyHandler {
     public List<WasInformedBy> readWasInformedBy() {
         List<WasInformedBy> wasInformedBys = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasInformedBy");
-        logger.info("Length wasInformedBy:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
 
@@ -195,7 +193,6 @@ public class OntologyHandler {
     public List<WasRevisonOf> readWasRevisonOf() {
         List<WasRevisonOf> wasRevisonOfs = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasRevisionOf");
-        logger.info("Length wasRevisonOf:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -212,7 +209,6 @@ public class OntologyHandler {
     public List<WasAttributedTo> readWasAttributedTo() {
         List<WasAttributedTo> wasAttributedTos = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:wasAttributedTo");
-        logger.info("Length wasAttributedTo:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -228,7 +224,6 @@ public class OntologyHandler {
     public List<Used> readUsed() {
         List<Used> useds = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("prov:used");
-        logger.info("Length used:"+ nList.getLength());
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -244,11 +239,10 @@ public class OntologyHandler {
    private Entity getEntity(Node node, String tag){
        Element eElement = (Element) node;
        NodeList entities = eElement.getElementsByTagName("prov:"+tag);
-       logger.info("Length entities:"+entities.getLength());
        if (entities != null && entities.item(0) != null && entities.item(0).getNodeType() == Node.ELEMENT_NODE) {
            Element generated = (Element) entities.item(0);
            String ref = generated.getAttribute("prov:ref");
-           Entity refEntity= entitiesMap.get(ref.replace("_2F","/").replace("__","_"));
+           Entity refEntity= entitiesMap.get(ref.replace("_2F","/").substring(7));
            return refEntity;
        }
        else return null;
@@ -258,11 +252,10 @@ public class OntologyHandler {
    private Activity getActivity(Node node, String tag){
        Element eElement = (Element) node;
        NodeList activities = eElement.getElementsByTagName("prov:"+tag);
-       logger.info("Length activities:"+activities.getLength());
        if (activities != null && activities.item(0) != null && activities.item(0).getNodeType() == Node.ELEMENT_NODE) {
            Element activity = (Element) activities.item(0);
            String ref = activity.getAttribute("prov:ref");
-           Activity refActivity = activitiesMap.get(ref);
+           Activity refActivity = activitiesMap.get("Activity-"+ref.replace("_2F","/").substring(7));
            return refActivity;
        }
        else return null;
@@ -271,11 +264,11 @@ public class OntologyHandler {
    private Agent getAgent(Node node, String tag){
        Element eElement = (Element) node;
        NodeList agents = eElement.getElementsByTagName("prov:"+tag);
-       logger.info("Length agents:"+agents.getLength());
        if (agents != null && agents.item(0) != null && agents.item(0).getNodeType() == Node.ELEMENT_NODE) {
            Element agent = (Element) agents.item(0);
            String ref = agent.getAttribute("prov:ref");
-           Agent refAgent = agentsMap.get("Agent-"+ref);
+           Agent refAgent = agentsMap.get("Agent-"+ref.substring(7));
+
            return refAgent;
        }
        else return null;
@@ -288,10 +281,8 @@ public class OntologyHandler {
        ArrayList<RevCommit> revCommits=versionChecker.reverseIterator();
        ArrayList<Activity> activities_temp=new ArrayList<>();
        for(RevCommit revCommit:revCommits){
-           logger.info("commit id: "+revCommit.getName());
            activities_temp.addAll(findActivityForSort(activities,revCommit.getName()));
        }
-       logger.info("Sorting: "+activities_temp.size());
        return activities_temp;
    }
 

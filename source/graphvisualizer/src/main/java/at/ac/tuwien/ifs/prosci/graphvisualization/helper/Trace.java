@@ -1,11 +1,9 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization.helper;
 
-import at.ac.tuwien.ifs.prosci.provstarter.helper.LogCreator;
-import at.ac.tuwien.ifs.prosci.provstarter.helper.ProsciProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +16,8 @@ import java.util.UUID;
 
 public class Trace{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    LogCreator logCreator;
+    //@Autowired
+    //LogCreator logCreator;
     @Autowired
     private ProsciProperties prosciProperties;
 
@@ -31,18 +29,18 @@ public class Trace{
 
     public Process traceProcess(String command) throws IOException {
 
-        LOGGER.debug("trace command : "+ command);
+
 
         UUID logId=UUID.randomUUID();
 
         Files.createDirectories(Paths.get(
                 prosciProperties.readProperties("workspace.current")
                         + path_mapping.getString("prosci.trace.log")+ "rerun"+logId.getLeastSignificantBits() ));
-        logCreator.createLog(
-                prosciProperties.readProperties("workspace.current")
-                        + path_mapping.getString("prosci.trace.systeminfo"),
-                "rerun"+logId.getLeastSignificantBits()
-        );
+       // logCreator.createLog(
+         //       prosciProperties.readProperties("workspace.current")
+           //             + path_mapping.getString("prosci.trace.systeminfo"),
+             //   "rerun"+logId.getLeastSignificantBits()
+       // );
 
 
         //String[] strace_commands = {"bash", "-c", ResourceBundle.getBundle("application").getString("strace") +
@@ -62,7 +60,7 @@ public class Trace{
         BufferedReader inputReader = new BufferedReader(input);
         String process_id = inputReader.readLine();
 
-        LOGGER.debug("Starting to trace Xterm...");
+
         String[] strace_commands = {"bash", "-c", ResourceBundle.getBundle("application").getString("strace") +
                 prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.trace.log") +"rerun"+logId.getLeastSignificantBits()+ "/prosci_"+System.currentTimeMillis()+".log"};
         process = runtime.exec(strace_commands);
