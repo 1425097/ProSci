@@ -706,6 +706,7 @@ public class Controller implements Initializable {
         picking.setVisible(false);
         mode="Activities";
         activities = ontologyHandler.readActivites();
+        Collections.sort(activities);
         initListView(list);
         list.getItems().clear();
         for (int i = 0; i < activities.size(); i++) {

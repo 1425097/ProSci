@@ -27,6 +27,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasRevisonOf.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/exception/TechnicalException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/CommandExtracter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/DefaultActivity.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java" afterDir="false" />
@@ -114,11 +115,11 @@
     <session id="-650670451">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="30" />
+          <entry key="project.closed" value="32" />
           <entry key="project.open.time.13" value="2" />
-          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.16" value="2" />
           <entry key="project.open.time.17" value="2" />
-          <entry key="project.open.time.19" value="3" />
+          <entry key="project.open.time.19" value="4" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.20" value="5" />
           <entry key="project.open.time.21" value="1" />
@@ -141,20 +142,20 @@
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="47" />
+          <entry key="project.opened" value="49" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="9" />
-          <entry key="java" value="5013" />
+          <entry key="java" value="5515" />
           <entry key="properties" value="22" />
           <entry key="xml" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5013" />
+          <entry key="JAVA" value="5515" />
           <entry key="Properties" value="22" />
           <entry key="XML" value="37" />
         </counts>
@@ -164,7 +165,7 @@
           <entry key="class" value="2" />
           <entry key="css" value="3" />
           <entry key="fxml" value="5" />
-          <entry key="java" value="172" />
+          <entry key="java" value="175" />
           <entry key="properties" value="10" />
           <entry key="xml" value="9" />
         </counts>
@@ -173,7 +174,7 @@
         <counts>
           <entry key="CLASS" value="2" />
           <entry key="CSS" value="3" />
-          <entry key="JAVA" value="172" />
+          <entry key="JAVA" value="175" />
           <entry key="Properties" value="10" />
           <entry key="XML" value="14" />
         </counts>
@@ -182,11 +183,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="150" column="14" lean-forward="true" selection-start-line="150" selection-start-column="14" selection-end-line="150" selection-end-column="14" />
+            <state relative-caret-position="405">
+              <caret line="699" column="5" lean-forward="true" selection-start-line="699" selection-start-column="5" selection-end-line="699" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -195,25 +196,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/prosci.fxml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1666">
-              <caret line="98" column="42" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+            <state relative-caret-position="289">
+              <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+              <folding>
+                <element signature="e#1100#1101#0" expanded="true" />
+                <element signature="e#1124#1125#0" expanded="true" />
+              </folding>
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/path_mapping.properties">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/DefaultActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            <state relative-caret-position="51">
+              <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="158" column="73" selection-start-line="158" selection-start-column="73" selection-end-line="158" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2867#2868#0" expanded="true" />
+                <element signature="e#2929#2930#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -230,7 +243,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
+            <state relative-caret-position="782">
               <caret line="68" column="105" selection-start-line="68" selection-start-column="105" selection-end-line="68" selection-end-column="105" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -260,8 +273,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+            <state relative-caret-position="86">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -314,7 +327,6 @@
       <find>activitySet</find>
       <find>compare</find>
       <find>wasin</find>
-      <find>entities</find>
       <find>sed</find>
       <find>&quot;sed</find>
       <find>entities_to</find>
@@ -322,6 +334,7 @@
       <find>system.out</find>
       <find>search</find>
       <find>searchbutton</find>
+      <find>entities</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -351,8 +364,6 @@
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java" />
         <option value="$PROJECT_DIR$/src/main/resources/path_mapping.properties" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Agent.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Entity.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Ontology.java" />
@@ -368,9 +379,12 @@
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java" />
         <option value="$PROJECT_DIR$/src/main/resources/prosci.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/DefaultActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java" />
       </list>
     </option>
   </component>
@@ -415,9 +429,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="25" />
-    <option name="width" value="1920" />
-    <option name="height" value="1055" />
+    <option name="x" value="-33" />
+    <option name="y" value="300" />
+    <option name="width" value="950" />
+    <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -425,8 +440,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -521,6 +534,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -533,7 +548,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559058127646" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559166882443" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -664,17 +679,20 @@
       <workItem from="1558890749166" duration="11308000" />
       <workItem from="1558937468133" duration="36104000" />
       <workItem from="1559127737462" duration="887000" />
-      <workItem from="1559129004609" duration="932000" />
+      <workItem from="1559129004609" duration="1694000" />
+      <workItem from="1559158664018" duration="3492000" />
+      <workItem from="1559162790255" duration="3207000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212593000" />
+    <option name="totallyTimeSpent" value="220054000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17305644" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20340788" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -683,16 +701,16 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Statistic" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.42951542" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.50770926" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.44493392" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.27722773" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.4790749" />
+      <window_info active="true" anchor="bottom" id="Debug" order="4" visible="true" weight="0.34361234" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50493824" side_tool="true" weight="0.3389694" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.26762116" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.45741326" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.26762116" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.45704845" />
       <window_info anchor="bottom" content_ui="combo" id="Run Dashboard" order="12" sideWeight="0.49506173" weight="0.31595093" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="14" weight="0.32929516" />
@@ -753,7 +771,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java</url>
-          <line>1023</line>
+          <line>1024</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -764,22 +782,22 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
-          <line>156</line>
-          <properties />
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
-          <line>178</line>
-          <properties />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java</url>
           <line>65</line>
           <properties />
           <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
+          <line>160</line>
+          <properties />
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
+          <line>158</line>
+          <properties />
+          <option name="timeStamp" value="105" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -803,11 +821,11 @@
         <watch expression="m.matches()" />
         <watch expression="activity.getLabel().contains(&quot;\&quot;sed\&quot;, \&quot;-i\&quot;, &quot;)" />
         <watch expression="currentCommitIndex" />
+        <watch expression="command.substring(1, command.length() - 1)" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.properties" />
     <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GUIConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -955,13 +973,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1075,20 +1086,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9010">
-          <caret line="530" column="17" lean-forward="true" selection-start-line="530" selection-start-column="17" selection-end-line="530" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2867#2868#0" expanded="true" />
-            <element signature="e#2929#2930#0" expanded="true" />
-            <element signature="e#23480#23481#0" expanded="true" />
-            <element signature="e#23555#23556#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1107,6 +1104,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="68" column="105" selection-start-line="68" selection-start-column="105" selection-end-line="68" selection-end-column="105" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -1121,16 +1135,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1141,29 +1145,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="68" column="105" selection-start-line="68" selection-start-column="105" selection-end-line="68" selection-end-column="105" />
+        <state relative-caret-position="289">
+          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="e#1100#1101#0" expanded="true" />
+            <element signature="e#1124#1125#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/DefaultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="699" column="5" lean-forward="true" selection-start-line="699" selection-start-column="5" selection-end-line="699" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="86">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="150" column="14" lean-forward="true" selection-start-line="150" selection-start-column="14" selection-end-line="150" selection-end-column="14" />
+        <state relative-caret-position="199">
+          <caret line="158" column="73" selection-start-line="158" selection-start-column="73" selection-end-line="158" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2929#2930#0" expanded="true" />
           </folding>
         </state>
       </provider>

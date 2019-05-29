@@ -3,7 +3,7 @@ package at.ac.tuwien.ifs.prosci.graphvisualization.entities;
 import java.io.File;
 import java.util.Date;
 
-public class Activity implements Ontology {
+public class Activity implements Ontology, Comparable{
     private String id;
     private String command;
     private String version;
@@ -47,4 +47,8 @@ public class Activity implements Ontology {
         return endTime;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return startTime.compareTo(((Activity)o).getStartTime());
+    }
 }

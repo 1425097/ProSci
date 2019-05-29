@@ -1,5 +1,6 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization.provo;
 
+import at.ac.tuwien.ifs.prosci.graphvisualization.helper.DefaultActivity;
 import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
 import at.ac.tuwien.ifs.prosci.graphvisualization.provo.model.ProvoEntitiy;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -52,7 +53,7 @@ public class OntologyCreator {
     private String log;
     private String systemInfo;
 
-    public void init(){
+    public void init() {
         ns = new Namespace();
         this.pFactory = InteropFramework.newXMLProvFactory();
         this.input = prosciProperties.readProperties("workspace.current") + path_mapping.getString("input");
@@ -64,7 +65,7 @@ public class OntologyCreator {
         entities_delete = new TreeMap<>();
         revCommits = new ArrayList<>();
         statementOrBundles = new TreeMap<>();
-        entities= new TreeMap<>();
+        entities = new TreeMap<>();
         activitySet = new TreeSet<>(new ActivityComp());
         ns.addKnownNamespaces();
         ns.register("prosci", "http://www.prosci.tuwein.ac.at#");
@@ -78,9 +79,9 @@ public class OntologyCreator {
         Document document = pFactory.newDocument();
         File file = new File(log);
         checkoutAllEntities();
-        Agent agent=null;
+        Agent agent = null;
         for (String f : file.list()) {
-            if(!f.equals(".git")) {
+            if (!f.equals(".git")) {
 
                 File subFile = new File(log + f);
                 BufferedReader reader = new BufferedReader(new FileReader(trace + "/systeminfo/" + f + ".txt"));
@@ -114,14 +115,14 @@ public class OntologyCreator {
                 });
 
                 int count = 0;
-                if(f.startsWith("rerun")){
-                    count=3;
+                if (f.startsWith("rerun")) {
+                    count = 3;
                 }
                 for (File log : logs) {
                     count++;
                     if (count >= 3) {
-                        String commandRecord = getCommandLineRecord(f, log.getName(),0);
-                        if(commandRecord!=null) {
+                        String commandRecord = getCommandLineRecord(f, log.getName(), 0);
+                        if (commandRecord != null) {
                             String[] commandRecordList = commandRecord.split("\\|");
                             if (commandRecordList.length > 3) {
                                 currentVerion = commandRecordList[3];
@@ -137,9 +138,9 @@ public class OntologyCreator {
 
                         String command = null;
                         BufferedReader logReader = new BufferedReader(new FileReader(log));
-                        String readline=null;
+                        String readline = null;
                         while ((readline = logReader.readLine()) != null) {
-                            line=readline;
+                            line = readline;
                             Pattern pattern = Pattern.compile("execve(.*) = 0");
                             Matcher matcher = pattern.matcher(line);
                             if (matcher.find()) {
@@ -149,12 +150,39 @@ public class OntologyCreator {
                                     entities_to.clear();
                                     entities_from.clear();
 
-                                    activity.setEndTime(getTime(commandStartAt+" "+geTimePoint(lastline)));
+                                    activity.setEndTime(getTime(commandStartAt + " " + geTimePoint(lastline)));
                                 }
 
                                 command = matcher.group(1);
-                                activity = createActivity(commandStartAt+" "+geTimePoint(line), command, currentVerion);
-                                createActivityAssociatedWith(agent, f, activity);
+
+                                Pattern p = Pattern.compile("\"(.*?)\"");
+                                Matcher m = p.matcher(getCommand(command));
+                                boolean addActivity = true;
+                                if (m.find()) {
+                                    switch (m.group(1)) {
+                                        case DefaultActivity.SNAP:
+                                            if (m.find() && m.group(1).equals(DefaultActivity.SNAP_ARG1)) {
+                                                if (m.find() && m.group(1).equals(DefaultActivity.SNAP_ARG2)) {
+                                                    if (m.find() && m.group(1).equals(DefaultActivity.SNAP_ARG3)) {
+                                                        addActivity = false;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case DefaultActivity.APPARMOR_PARSER:
+                                            if (m.find() && m.group(1).equals(DefaultActivity.APPARMOR_PARSER_ARG)) {
+                                            addActivity = false;
+                                        }
+                                        break;
+                                        default:
+                                            break;
+                                    }
+                                }
+
+                                if (addActivity) {
+                                    activity = createActivity(commandStartAt + " " + geTimePoint(line), command, currentVerion);
+                                    createActivityAssociatedWith(agent, f, activity);
+                                }
                             }
 
                             if (line.contains("read(")) {
@@ -165,7 +193,7 @@ public class OntologyCreator {
                                         String mat = matcher.group(1);
                                         if (!entities_from.containsKey(mat)) {
                                             Entity entity = getEntityFromList(mat, currentVerion, true);
-                                            if(entity!=null) {
+                                            if (entity != null) {
                                                 entities_from.put(mat, entity);
                                             }
                                         }
@@ -181,7 +209,7 @@ public class OntologyCreator {
                                         String mat = matcher.group(1);
                                         if (!entities_to.containsKey(mat)) {
                                             Entity entity = getEntityFromList(mat, currentVerion, false);
-                                            if(entity!=null) {
+                                            if (entity != null) {
                                                 entities_to.put(mat, entity);
                                             }
                                         }
@@ -196,7 +224,7 @@ public class OntologyCreator {
                                     if (matcher.find()) {
                                         String mat = matcher.group(1);
                                         if (!entities_delete.containsKey(mat)) {
-                                            Entity entity = getEntityFromList(mat, lastVersion,true);
+                                            Entity entity = getEntityFromList(mat, lastVersion, true);
                                             entities_delete.put(mat, entity);
 
                                         }
@@ -205,15 +233,15 @@ public class OntologyCreator {
                             }
 
                         }
-                        if(activity.getId().toString().contains("sed")){
+                        if(activity!=null&&activity.getId().toString().contains("sed")){
                             Pattern p=Pattern.compile("\"(.*?)\"");
                             Matcher m=p.matcher(activity.getLabel().toString());
                             while (m.find()){
-                              if(m.group(1).equals("-i")){
-                                  String filename=entities_from.keySet().iterator().next();
-                                  entities_to.put(filename, getEntityFromList(filename, currentVerion, false));
-                                  break;
-                              }
+                                if(m.group(1).equals("-i")){
+                                    String filename=entities_from.keySet().iterator().next();
+                                    entities_to.put(filename, getEntityFromList(filename, currentVerion, false));
+                                    break;
+                                }
                             }
 
                         }
@@ -226,27 +254,26 @@ public class OntologyCreator {
                     lastline = line;
 
 
-
                 }
-                XMLGregorianCalendar time= getTime(commandStartAt+" "+ geTimePoint(lastline));
-                if(time!=null) {
+                XMLGregorianCalendar time = getTime(commandStartAt + " " + geTimePoint(lastline));
+                if (time != null) {
                     activity.setEndTime(time);
                 }
             }
 
-            }
+        }
         createActivityInformedBy();
         document.getStatementOrBundle().addAll(statementOrBundles.values());
         document.setNamespace(ns);
         return document;
     }
 
-    private String geTimePoint(String lastline){
-        String endTime=null;
+    private String geTimePoint(String lastline) {
+        String endTime = null;
         try {
             endTime = lastline.split(" ")[0];
         } catch (Exception e) {
-            if(endTime!=null) {
+            if (endTime != null) {
                 endTime = lastline.split("  ")[0];
             }
         }
@@ -256,13 +283,12 @@ public class OntologyCreator {
     private void createActivityInformedBy() throws IOException {
         Activity activity1 = null;
         Activity activity2 = null;
-        int count=0;
-        for(Activity activity:activitySet){
-            if(count==0){
-                activity1=activity;
+        int count = 0;
+        for (Activity activity : activitySet) {
+            if (count == 0) {
+                activity1 = activity;
                 count++;
-            }
-            else {
+            } else {
                 activity2 = activity;
                 WasInformedBy wasInformedBy = pFactory.newWasInformedBy(null, activity2.getId(), activity1.getId());
                 statementOrBundles.put(activity2.getId() + "-" + activity1.getId(), wasInformedBy);
@@ -273,7 +299,7 @@ public class OntologyCreator {
     }
 
     private Agent createActivityAssociatedWith(Agent agent, String f, Activity activity) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(trace + "/systeminfo/"+f + ".txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(trace + "/systeminfo/" + f + ".txt"));
         String name = reader.readLine();
         String label = name + "\n";
         String line = null;
@@ -293,7 +319,7 @@ public class OntologyCreator {
             WasGeneratedBy generatedBy = pFactory.newWasGeneratedBy(e, null,
                     activity);
             WasAttributedTo wasAttributedTo = pFactory.newWasAttributedTo(null, e.getId(), agent.getId());
-            statementOrBundles.put( e.getId() + "-" + agent.getId(), wasAttributedTo);
+            statementOrBundles.put(e.getId() + "-" + agent.getId(), wasAttributedTo);
             statementOrBundles.put(e.getId() + "-" + activity.getId(), generatedBy);
         }
         for (Entity e : entities_from.values()) {
@@ -311,50 +337,54 @@ public class OntologyCreator {
         }
         for (Entity e : entities_delete.values()) {
             WasInvalidatedBy wasInvalidatedBy = pFactory.newWasInvalidatedBy(null, e.getId(), activity.getId(), activity.getEndTime(), null);
-                statementOrBundles.put(e.getId().toString(), wasInvalidatedBy);
+            statementOrBundles.put(e.getId().toString(), wasInvalidatedBy);
         }
     }
 
-    private Activity createActivity(String commandStartAt,String command, String currentVerion) throws ParseException, DatatypeConfigurationException {
+    private Activity createActivity(String commandStartAt, String command, String currentVerion) throws ParseException, DatatypeConfigurationException {
 
         XMLGregorianCalendar xmlStartDate = getTime(commandStartAt);
         Activity activity = null;
-        Pattern pattern = Pattern.compile("(\\[\".*\"])");
-        Matcher matcher = pattern.matcher(command);
-        if (matcher.find()){
-            command = matcher.group(1);
-    }
-
-        Pattern p=Pattern.compile("\"(.*?)\"");
-        Matcher m=p.matcher(command);
-        String startCommand="";
-        if (m.find()){
-            startCommand=m.group(1);
+        command=getCommand(command);
+        Pattern p = Pattern.compile("\"(.*?)\"");
+        Matcher m = p.matcher(command);
+        String startCommand = "";
+        if (m.find()) {
+            startCommand = m.group(1);
         }
 
-        activity = pFactory.newActivity(qn(startCommand+"-"+commandStartAt.replace(":",".").replace(" ",".").substring(5,23)),command.substring(1,command.length()-1));
+        activity = pFactory.newActivity(qn(startCommand + "-" + commandStartAt.replace(":", ".").replace(" ", ".").substring(5, 23)), command.substring(1, command.length() - 1));
         activity.setStartTime(xmlStartDate);
 
         statementOrBundles.put(activity.getId().toString(), activity);
         activitySet.add(activity);
         return activity;
     }
+    private String getCommand(String command){
+        Pattern pattern = Pattern.compile("(\\[\".*\"])");
+        Matcher matcher = pattern.matcher(command);
+        if (matcher.find()) {
+            command = matcher.group(1);
+        }
+        return command;
+
+    }
 
     private XMLGregorianCalendar getTime(String time) throws DatatypeConfigurationException, ParseException {
         DateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss.SSS");
-        time = time.substring(0,time.length()-3);
-try {
-    Date startDate = format.parse(time);
+        time = time.substring(0, time.length() - 3);
+        try {
+            Date startDate = format.parse(time);
 
-    GregorianCalendar calenderStartDate = new GregorianCalendar();
+            GregorianCalendar calenderStartDate = new GregorianCalendar();
 
-    calenderStartDate.setTime(startDate);
+            calenderStartDate.setTime(startDate);
 
-    XMLGregorianCalendar xmlStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calenderStartDate);
-    return xmlStartDate;
-}catch (Exception e){
-    return null;
-}
+            XMLGregorianCalendar xmlStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calenderStartDate);
+            return xmlStartDate;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void doConversions(Document document, String file) throws IOException {
@@ -371,13 +401,13 @@ try {
     private void checkFirstInit(String commitID) throws IOException {
         List<String> paths = versionChecker.getFiles(commitID);
         for (String path : paths) {
-            Entity generatedEntity = pFactory.newEntity(qn(contructePath(path,1)
+            Entity generatedEntity = pFactory.newEntity(qn(contructePath(path, 1)
             ));
-            ProvoEntitiy provoEntitiy=new ProvoEntitiy(generatedEntity,1,path, commitID);
+            ProvoEntitiy provoEntitiy = new ProvoEntitiy(generatedEntity, 1, path, commitID);
             setValue(generatedEntity, provoEntitiy);
-            List<ProvoEntitiy> entitiyList=new ArrayList<>();
+            List<ProvoEntitiy> entitiyList = new ArrayList<>();
             entitiyList.add(provoEntitiy);
-            entities.put(path,entitiyList);
+            entities.put(path, entitiyList);
             statementOrBundles.put("E-" + generatedEntity.getId(), generatedEntity);
         }
     }
@@ -387,14 +417,14 @@ try {
         int commitIndex = versionChecker.getIndexOfVersionID(currentCommitId);
         for (DiffEntry e : diff) {
             if (e.getChangeType().equals(DiffEntry.ChangeType.MODIFY) || e.getChangeType().equals(DiffEntry.ChangeType.RENAME)) {
-                List<ProvoEntitiy> provoEntitiys=entities.get(e.getOldPath());
-                Entity usedEntity =provoEntitiys.get(provoEntitiys.size()-1).getEntity();
-                Entity generatedEntity = pFactory.newEntity(qn(contructePath(e.getNewPath(),(provoEntitiys.size()+1))));
-                ProvoEntitiy provoEntitiy=new ProvoEntitiy(generatedEntity,provoEntitiys.size()+1,e.getNewPath(),currentCommitId);
+                List<ProvoEntitiy> provoEntitiys = entities.get(e.getOldPath());
+                Entity usedEntity = provoEntitiys.get(provoEntitiys.size() - 1).getEntity();
+                Entity generatedEntity = pFactory.newEntity(qn(contructePath(e.getNewPath(), (provoEntitiys.size() + 1))));
+                ProvoEntitiy provoEntitiy = new ProvoEntitiy(generatedEntity, provoEntitiys.size() + 1, e.getNewPath(), currentCommitId);
 
                 setValue(generatedEntity, provoEntitiy);
                 provoEntitiys.add(provoEntitiy);
-                entities.put(e.getNewPath(),provoEntitiys);
+                entities.put(e.getNewPath(), provoEntitiys);
                 statementOrBundles.put("E-" + generatedEntity.getId(), generatedEntity);
 
                 if (usedEntity != null) {
@@ -406,17 +436,17 @@ try {
                     LOGGER.error("can not find last version");
 
             } else if (e.getChangeType().equals(DiffEntry.ChangeType.ADD)) {
-                Entity generatedEntity = pFactory.newEntity(qn(contructePath(e.getNewPath(),1)));
-                List<ProvoEntitiy> provoEntitiys=new ArrayList<>();
-                ProvoEntitiy provoEntitiy=new ProvoEntitiy(generatedEntity,1,e.getNewPath(),currentCommitId);
+                Entity generatedEntity = pFactory.newEntity(qn(contructePath(e.getNewPath(), 1)));
+                List<ProvoEntitiy> provoEntitiys = new ArrayList<>();
+                ProvoEntitiy provoEntitiy = new ProvoEntitiy(generatedEntity, 1, e.getNewPath(), currentCommitId);
                 provoEntitiys.add(provoEntitiy);
                 setValue(generatedEntity, provoEntitiy);
-                entities.put(e.getNewPath(),provoEntitiys);
+                entities.put(e.getNewPath(), provoEntitiys);
 
                 statementOrBundles.put("E-" + generatedEntity.getId(), generatedEntity);
             } else if (e.getChangeType().equals(DiffEntry.ChangeType.DELETE)) {
-                List<ProvoEntitiy> provoEntitiys=entities.get(e.getOldPath());
-                Entity deletedEntity = provoEntitiys.get(provoEntitiys.size()-1).getEntity();
+                List<ProvoEntitiy> provoEntitiys = entities.get(e.getOldPath());
+                Entity deletedEntity = provoEntitiys.get(provoEntitiys.size() - 1).getEntity();
                 deletedEntity.setValue(new org.openprovenance.prov.xml.Value());
                 if (deletedEntity != null) {
                     //for deleting file without running command
@@ -424,17 +454,17 @@ try {
                     c.setTime(versionChecker.getCommitTime(currentCommitId));
                     XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
                     WasInvalidatedBy wasInvalidatedBy = pFactory.newWasInvalidatedBy(null, deletedEntity.getId(), null, xmlDate, null);
-                      statementOrBundles.put("I-" + deletedEntity.getId(), wasInvalidatedBy);
+                    statementOrBundles.put("I-" + deletedEntity.getId(), wasInvalidatedBy);
                 } else
-                   LOGGER.error("can not find last version");
+                    LOGGER.error("can not find last version");
 
 
             }
         }
     }
 
-    private Entity setValue(Entity entity,ProvoEntitiy provoEntitiy)  {
-        entity.setValue(pFactory.newValue(prosciProperties.readProperties("workspace.current") + path_mapping.getString("input") + provoEntitiy.getPath()+"\n"+provoEntitiy.getCommitID(),
+    private Entity setValue(Entity entity, ProvoEntitiy provoEntitiy) {
+        entity.setValue(pFactory.newValue(prosciProperties.readProperties("workspace.current") + path_mapping.getString("input") + provoEntitiy.getPath() + "\n" + provoEntitiy.getCommitID(),
                 pFactory.getName().XSD_STRING));
         return entity;
     }
@@ -454,10 +484,10 @@ try {
         }
     }
 
-    private Entity getEntityFromList(String mat, String currentVerion, boolean isfrom){
+    private Entity getEntityFromList(String mat, String currentVerion, boolean isfrom) {
 
         Entity entity = findEntityInEntities(versionChecker.getIndexOfVersionID(currentVerion), mat.substring(
-               input.length()), isfrom);
+                input.length()), isfrom);
 
         if (entity != null) {
             return entity;
@@ -473,31 +503,29 @@ try {
         Entity entity = null;
         Entity entityPreseved = null;
 
-        List<ProvoEntitiy> provoEntitiys=entities.get(path);
-        if(provoEntitiys!=null) {
-            if(isfrom) {
+        List<ProvoEntitiy> provoEntitiys = entities.get(path);
+        if (provoEntitiys != null) {
+            if (isfrom) {
                 for (int i = provoEntitiys.size() - 1; i >= 0; i--) {
                     int currentCommitIndex = versionChecker.getIndexOfVersionID(provoEntitiys.get(i).getCommitID());
                     if (currentCommitIndex <= commitIndex) {
-                        if(currentCommitIndex==commitIndex){
-                            entityPreseved=provoEntitiys.get(i).getEntity();
-                        }
-                        else {
+                        if (currentCommitIndex == commitIndex) {
+                            entityPreseved = provoEntitiys.get(i).getEntity();
+                        } else {
                             entity = provoEntitiys.get(i).getEntity();
                             return entity;
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 for (int i = 0; i <= provoEntitiys.size() - 1; i++) {
                     int currentCommitIndex = versionChecker.getIndexOfVersionID(provoEntitiys.get(i).getCommitID());
 
                     if (currentCommitIndex >= commitIndex) {
                         entity = provoEntitiys.get(i).getEntity();
                         return entity;
-                    }else{
-                        entityPreseved=provoEntitiys.get(i).getEntity();
+                    } else {
+                        entityPreseved = provoEntitiys.get(i).getEntity();
                     }
                 }
             }
@@ -508,25 +536,24 @@ try {
     private String getCommandLineRecord(String filename, String logid, int retry) throws IOException, InterruptedException {
 
         Scanner commandReader = new Scanner(new FileInputStream(trace + "/command.txt"));
-        String commandRecord=null;
+        String commandRecord = null;
         while (commandReader.hasNextLine()) {
             commandRecord = commandReader.nextLine();
             String[] commandRecordList = commandRecord.split("\\|");
-            if(commandRecordList[1].equalsIgnoreCase(filename)&&commandRecordList[2].equalsIgnoreCase(logid)){
+            if (commandRecordList[1].equalsIgnoreCase(filename) && commandRecordList[2].equalsIgnoreCase(logid)) {
                 commandReader.close();
-            return commandRecord;
+                return commandRecord;
             }
         }
-        if(commandRecord==null&&retry<10) {
+        if (commandRecord == null && retry < 10) {
             Thread.sleep(2000);
             return getCommandLineRecord(filename, logid, retry + 1);
-        }
-        else{
+        } else {
             return null;
         }
     }
 
-    class ActivityComp implements Comparator<Activity>{
+    class ActivityComp implements Comparator<Activity> {
 
         @Override
         public int compare(Activity e1, Activity e2) {
@@ -535,23 +562,23 @@ try {
     }
 
     private String getProcessorId(BufferedReader bufferedReader) throws Exception {
-        String systemInfoLine=null;
-        while ((systemInfoLine=bufferedReader.readLine())!=null) {
-            if(systemInfoLine.startsWith("ProcessorID")){
-            return systemInfoLine.substring(13);}
+        String systemInfoLine = null;
+        while ((systemInfoLine = bufferedReader.readLine()) != null) {
+            if (systemInfoLine.startsWith("ProcessorID")) {
+                return systemInfoLine.substring(13);
+            }
         }
         throw new Exception("Can't find ProcessorID");
     }
 
-    private String contructePath(String path, int version){
-        String[] pathString= path.split("\\.");
+    private String contructePath(String path, int version) {
+        String[] pathString = path.split("\\.");
 
-        String pathNew=path+".v"+version;
+        String pathNew = path + ".v" + version;
         return pathNew;
 
 
     }
-
 
 
 }

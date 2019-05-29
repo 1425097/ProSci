@@ -11,6 +11,7 @@
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasInformedBy.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java
+/home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/DefaultActivity.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java
 /home/feng/IdeaProjects/graphvisualizer/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java

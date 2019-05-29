@@ -68,7 +68,8 @@ public class VersionChecker {
         RevCommit commit = getCommit(commitID);
 
         TreeWalk treeWalk = new TreeWalk(getGit("input").getRepository());
-        treeWalk.reset(commit.getTree().getId());
+        treeWalk.setRecursive(true);
+        treeWalk.reset(commit.getTree());
         while (treeWalk.next()) {
             String path = treeWalk.getPathString();
             pathList.add(path);
