@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="jung-algorithms1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-algorithms" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-api" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-graph-impl" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-io" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-samples" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-visualization" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-algorithms/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-algorithms/src/test/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-api/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-api/src/test/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-graph-impl/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-io/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-io/src/test/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-samples/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-visualization/src/main/java" />
+      <root url="file://$USER_HOME$/Downloads/jung-master/jung-visualization/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

@@ -8,21 +8,25 @@ import at.ac.tuwien.ifs.prosci.graphvisualization.helper.Trace;
 import at.ac.tuwien.ifs.prosci.graphvisualization.provo.OntologyCreator;
 import at.ac.tuwien.ifs.prosci.graphvisualization.provo.VersionChecker;
 import com.google.common.base.Function;
+import com.google.common.graph.MutableNetwork;
+import com.google.common.graph.Network;
+import com.google.common.graph.NetworkBuilder;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import edu.uci.ics.jung.algorithms.layout.FRLayout2;
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
-import edu.uci.ics.jung.visualization.DefaultVisualizationModel;
+import edu.uci.ics.jung.layout.algorithms.FRLayoutAlgorithm;
+import edu.uci.ics.jung.layout.algorithms.LayoutAlgorithm;
+import edu.uci.ics.jung.layout.util.RandomLocationTransformer;
+import edu.uci.ics.jung.visualization.BaseVisualizationModel;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.picking.MultiPickedState;
+import edu.uci.ics.jung.visualization.picking.PickedInfo;
+import edu.uci.ics.jung.visualization.picking.PickedState;
+import edu.uci.ics.jung.visualization.renderers.DefaultNodeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -58,10 +62,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.*;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Component
 public class Controller implements Initializable {
@@ -94,8 +99,12 @@ public class Controller implements Initializable {
     public JFXButton title;
     public TextField searchtext;
     public JFXButton searchbutton;
+    public RadioButton picking;
+    public RadioButton transforming;
+    public VBox modetype;
     @Autowired
     OntologyHandler ontologyHandler;
+    @FXML
     private String mode="Overview";
 
     @Bean
@@ -131,11 +140,14 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         FileInputStream input = null;
         try {
+            Files.createFile(Paths.get(prosciProperties.readProperties("workspace.current")
+                            + path_mapping.getString("prosci.trace.log")
+                    + prosciProperties.readProperties(prosciProperties.readProperties("workspace.current")+".log")
+                    + path_mapping.getString("prosci.trace.stop")));
             configWindow();
             simulator = new TextArea();
             String file_xml = prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.prov") + "prov.xml";
             ontologyCreator.init();
-            ontologyCreator.openingBanner();
             Document document = ontologyCreator.makeDocument();
             ontologyCreator.doConversions(document, file_xml);
             ontologyCreator.closingBanner();
@@ -200,6 +212,13 @@ public class Controller implements Initializable {
         title.prefWidthProperty().bind(vBox_link.widthProperty());
         title.prefHeightProperty().bind(vBox_link.heightProperty().multiply(0.3));
         title.setDisable(true);
+        //searchtext.prefHeightProperty().bind(vBox_right.heightProperty());
+        searchtext.prefWidthProperty().bind(vBox_right.widthProperty().multiply(0.6));
+        searchbutton.prefWidthProperty().bind(vBox_right.widthProperty().multiply(0.2));
+        modetype.prefWidthProperty().bind(vBox_right.widthProperty().multiply(0.2));
+        picking.prefHeightProperty().bind(modetype.widthProperty().multiply(0.5));
+        transforming.prefHeightProperty().bind(modetype.widthProperty().multiply(0.5));
+
     }
 
     private void initListView(JFXListView<Button> list) {
@@ -268,6 +287,8 @@ public class Controller implements Initializable {
         if (type == 1) {
             JFXListView<Button> listView = new JFXListView<>();
             TitledPane t1 = new TitledPane("Was attributed to", listView);
+            listView.prefWidthProperty().bind(t1.widthProperty());
+            listView.prefHeightProperty().bind(t1.heightProperty());
             accordion.getPanes().add(t1);
             for (WasAttributedTo i : wasAttributedTos) {
                 if (i.getEntity().getId().equals(id)) {
@@ -292,6 +313,8 @@ public class Controller implements Initializable {
     private void checkWasDerivedFrom(Accordion accordion, String id) {
         JFXListView<Button> listView = new JFXListView<>();
         TitledPane t1 = new TitledPane("Was derived from", listView);
+        listView.prefWidthProperty().bind(t1.widthProperty());
+        listView.prefHeightProperty().bind(t1.heightProperty());
         accordion.getPanes().add(t1);
         for (WasDerivedFrom i : wasDerivedFroms) {
 
@@ -301,6 +324,8 @@ public class Controller implements Initializable {
         }
         JFXListView<Button> listView2 = new JFXListView<>();
         TitledPane t2 = new TitledPane("Derived the entities", listView2);
+        listView2.prefWidthProperty().bind(t2.widthProperty());
+        listView2.prefHeightProperty().bind(t2.heightProperty());
         accordion.getPanes().add(t2);
         for (WasDerivedFrom i : wasDerivedFroms) {
             if (i.getUsedEntity().getId().equals(id)) {
@@ -314,6 +339,8 @@ public class Controller implements Initializable {
     private void checkWasRevisionOf(Accordion accordion, String id) {
         JFXListView<Button> listView = new JFXListView<>();
         TitledPane t1 = new TitledPane("Last version", listView);
+        listView.prefWidthProperty().bind(t1.widthProperty());
+        listView.prefHeightProperty().bind(t1.heightProperty());
         accordion.getPanes().add(t1);
         for (WasRevisonOf i : wasRevisonOfs) {
             if (i.getGeneratedEntity().getId().equals(id)) {
@@ -322,6 +349,8 @@ public class Controller implements Initializable {
         }
         JFXListView<Button> listView2 = new JFXListView<>();
         TitledPane t2 = new TitledPane("Next version", listView2);
+        listView2.prefWidthProperty().bind(t2.widthProperty());
+        listView2.prefHeightProperty().bind(t2.heightProperty());
         accordion.getPanes().add(t2);
         for (WasRevisonOf i : wasRevisonOfs) {
             if (i.getUsedEntity().getId().equals(id)) {
@@ -335,6 +364,8 @@ public class Controller implements Initializable {
         if (type == 1) {
             JFXListView<Button> listView = new JFXListView<>();
             TitledPane t1 = new TitledPane("Used files", listView);
+            listView.prefWidthProperty().bind(t1.widthProperty());
+            listView.prefHeightProperty().bind(t1.heightProperty());
             accordion.getPanes().add(t1);
             for (Used i : useds) {
                 if (i.getActivity().getId().equals(id)) {
@@ -344,6 +375,8 @@ public class Controller implements Initializable {
         } else {
             JFXListView<Button> listView = new JFXListView<>();
             TitledPane t1 = new TitledPane("Was used by activitys", listView);
+            listView.prefWidthProperty().bind(t1.widthProperty());
+            listView.prefHeightProperty().bind(t1.heightProperty());
             accordion.getPanes().add(t1);
             for (Used i : useds) {
                 if (i.getEntity().getId().equals(id)) {
@@ -358,6 +391,8 @@ public class Controller implements Initializable {
     private void checkWasAssociatedWith(Accordion accordion, String id, int type) {
         JFXListView<Button> listView = new JFXListView<>();
         TitledPane t1 = new TitledPane("Was associated with", listView);
+        listView.prefWidthProperty().bind(t1.widthProperty());
+        listView.prefHeightProperty().bind(t1.heightProperty());
         accordion.getPanes().add(t1);
         for (WasAssociatedWith a : wasAssociatedWiths) {
             if (type == 1) {
@@ -405,7 +440,10 @@ public class Controller implements Initializable {
 
     private void checkWasInformedBy(Accordion accordion, String id) {
         JFXListView<Button> listView = new JFXListView<>();
+
         TitledPane t1 = new TitledPane("Was informed by activities", listView);
+        listView.prefWidthProperty().bind(t1.widthProperty());
+        listView.prefHeightProperty().bind(t1.heightProperty());
         accordion.getPanes().add(t1);
         for (WasInformedBy i : wasInformedBys) {
 
@@ -416,6 +454,8 @@ public class Controller implements Initializable {
         }
         JFXListView<Button> listView2 = new JFXListView<>();
         TitledPane t2 = new TitledPane("Informed the activities", listView2);
+        listView2.prefWidthProperty().bind(t2.widthProperty());
+        listView2.prefHeightProperty().bind(t2.heightProperty());
         accordion.getPanes().add(t2);
         for (WasInformedBy i : wasInformedBys) {
 
@@ -430,6 +470,8 @@ public class Controller implements Initializable {
         if (type == 1) {
             JFXListView<Button> listView = new JFXListView<>();
             TitledPane t1 = new TitledPane("Was generated by", listView);
+            listView.prefWidthProperty().bind(t1.widthProperty());
+            listView.prefHeightProperty().bind(t1.heightProperty());
             accordion.getPanes().add(t1);
             for (WasGeneratedBy i : wasGeneratedBys) {
                 if (i.getEntity().getId().equals(id)) {
@@ -440,6 +482,8 @@ public class Controller implements Initializable {
         } else {
             JFXListView<Button> listView = new JFXListView<>();
             TitledPane t1 = new TitledPane("Generated the entities", listView);
+            listView.prefWidthProperty().bind(t1.widthProperty());
+            listView.prefHeightProperty().bind(t1.heightProperty());
             accordion.getPanes().add(t1);
             for (WasGeneratedBy i : wasGeneratedBys) {
                 if (i.getActivity().getId().equals(id)) {
@@ -486,25 +530,8 @@ public class Controller implements Initializable {
                     @Override
                     public void handle(MouseEvent e) {
                         try {
-                            String filename = entity.getName();
-
-                            String pattern = Pattern.quote(System.getProperty("file.separator"));
-                            String[] splittedFileName = filename.split(pattern);
-                            filename = splittedFileName[splittedFileName.length - 1];
-                            File f = new File(prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.version")+filename);
-                            if (f.exists() && !f.isDirectory()) {
-                                int decisionCode = createConfirmation(
-                                        "File exits",
-                                        "A file with name " + filename + " exits in the path [" + f.getPath() + "], do you want to overwrite it?");
-                                if (decisionCode == 1) {
-                                    versionChecker.getFile(entities.get(getIndexOfTheOntogoly(entity)).getVersion(),filename, entity.getId().substring(7));
-                                    createInformationDialogs("File successfully load", "The selected file is successfully loaded [" + f.getPath() + "].");
-                                }
-                            } else {
-                                versionChecker.getFile(entities.get(getIndexOfTheOntogoly(entity)).getVersion(),filename, entity.getId().substring(7));
-                                createInformationDialogs("File successfully load", "The selected file is successfully loaded [" + f.getPath() + "].");
-                            }
-
+                                versionChecker.getFile(entities.get(getIndexOfTheOntogoly(entity)).getVersion(),entity.getName(), entity.getId());
+                                createInformationDialogs("File successfully load", "The selected file is successfully loaded [" + entity.getId() + "].");
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
@@ -561,6 +588,8 @@ public class Controller implements Initializable {
     public void overview(MouseEvent mouseEvent) throws IOException, ParserConfigurationException, SAXException, ParseException {
         searchtext.setVisible(true);
         searchbutton.setVisible(true);
+        transforming.setVisible(true);
+        picking.setVisible(true);
         mode="Overview";
         SwingNode swingNode=new SwingNode();
         swingNode.setContent(graphDrawing.draw(false));
@@ -612,6 +641,8 @@ public class Controller implements Initializable {
     public void files(MouseEvent mouseEvent) throws  ParserConfigurationException, SAXException, IOException {
         searchtext.setVisible(true);
         searchbutton.setVisible(true);
+        transforming.setVisible(false);
+        picking.setVisible(false);
         mode="Files";
         entities = ontologyHandler.readEntites();
         initListView(list);
@@ -647,6 +678,8 @@ public class Controller implements Initializable {
     public void agents(MouseEvent mouseEvent) {
         searchtext.setVisible(true);
         searchbutton.setVisible(true);
+        transforming.setVisible(false);
+        picking.setVisible(false);
         mode="Agents";
         agents = ontologyHandler.readAgent();
         initListView(list);
@@ -669,6 +702,8 @@ public class Controller implements Initializable {
     public void activities(MouseEvent mouseEvent) throws ParseException {
         searchtext.setVisible(true);
         searchbutton.setVisible(true);
+        transforming.setVisible(false);
+        picking.setVisible(false);
         mode="Activities";
         activities = ontologyHandler.readActivites();
         initListView(list);
@@ -839,6 +874,8 @@ public class Controller implements Initializable {
     public void showDetail(Ontology o) {
         searchtext.setVisible(false);
         searchbutton.setVisible(false);
+        transforming.setVisible(false);
+        picking.setVisible(false);
         VBox vBox = new VBox(10);
         TextArea baseInfo = new TextArea();
         baseInfo.prefHeightProperty().bind(vBox_right.heightProperty().multiply(0.3));
@@ -870,12 +907,9 @@ public class Controller implements Initializable {
             checkWasInformedBy(accordion, o.getId());
             checkWasGeneratedBy(accordion, o.getId(), 2);
             checkUsed(accordion, o.getId(), 1);
-
-            addRerunButtonHandler(rerun_button, (Activity) o);
-
         } else if (o instanceof Entity) {
             baseInfo.setText("ID: " + o.getId() + "\n" +
-                    "Path: " + ((Entity) o).getName() + "\n");
+                    "Path: " + ((Entity) o).getValue() + "\n");
             checkUsed(accordion, o.getId(), 2);
             checkWasAttributedTo(accordion, o.getId(), 1);
             checkWasDerivedFrom(accordion, o.getId());
@@ -923,56 +957,105 @@ public class Controller implements Initializable {
         public VisualizationViewer<String, String> draw(boolean withSearch) throws ParserConfigurationException, SAXException, IOException, ParseException {
 
             setLayout(new BorderLayout());
-            Layout<String, String> layout = new FRLayout2<>(getGraph(withSearch));
+            LayoutAlgorithm layoutAlgorithm = new FRLayoutAlgorithm();
+            vv = new VisualizationViewer<>(
+                    new BaseVisualizationModel(
+                            getGraph(withSearch),
+                            layoutAlgorithm,
+                            new RandomLocationTransformer<>((int)pane.getWidth(), (int)pane.getHeight(), 0),
+                            new Dimension((int)pane.getWidth(), (int)pane.getHeight())),
+                    new Dimension((int)pane.getWidth(), (int)pane.getHeight()));
 
-            vv = new VisualizationViewer<String, String>(new DefaultVisualizationModel<>(layout), new Dimension((int)pane.getWidth(), (int)pane.getHeight()));
-            vv.setBackground(java.awt.Color.white);
+            vv.setBackground(java.awt.Color.DARK_GRAY);
 
 
-            vv.getRenderContext().setVertexFillPaintTransformer(new VertexPaint());
-            vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-            vv.addGraphMouseListener(new TestGraphMouseListener<>());
-            vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
+            vv.getRenderContext().setNodeFillPaintFunction(new VertexPaint());
+            vv.getRenderContext().setEdgeDrawPaintFunction(new Function<String, Paint>() {
+                @NullableDecl
+                @Override
+                public Paint apply(@NullableDecl String input) {
+                    return java.awt.Color.white;
+                }
+            });
+            vv.getRenderContext().setNodeLabelFunction(new ToStringLabeller());
+            vv.getRenderContext().setNodeLabelDrawPaintFunction(new Function<String, Paint>() {
+                @NullableDecl
+                @Override
+                public Paint apply(@NullableDecl String input) {
+                    return java.awt.Color.white;
+                }
+            });
+
+            vv.getRenderContext().setNodeLabelRenderer(new DefaultNodeLabelRenderer(java.awt.Color.red));
+            vv.getRenderer().getNodeLabelRenderer().setPosition(Renderer.NodeLabel.Position.AUTO);
+            vv.getRenderContext().setNodeDrawPaintFunction(new Function<String, Paint>() {
+                @NullableDecl
+                @Override
+                public Paint apply(@NullableDecl String input) {
+                    return java.awt.Color.white;
+                }
+            });
             DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
             gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
             vv.setGraphMouse(gm);
+            PickedState<String> pvs = new MultiPickedState<>();
+            vv.setPickedNodeState(pvs);
+            vv.getRenderContext()
+                    .setNodeFillPaintFunction(new VertexPaint());
+            vv.getRenderContext().setNodeStrokeFunction(new TestGraphMouseListener(pvs));
+            ToggleGroup group = new ToggleGroup();
+            picking.setToggleGroup(group);
+            transforming.setToggleGroup(group);
+            transforming.setSelected(true);
+            picking.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    gm.setMode(ModalGraphMouse.Mode.PICKING);
+                }
+            });
+            transforming.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+                }
+            });
             return vv;
         }
 
-        private Graph getGraph(boolean withSearch) throws ParserConfigurationException, SAXException, IOException, ParseException {
+        private Network getGraph(boolean withSearch) throws ParserConfigurationException, SAXException, IOException, ParseException {
             ontologyHandler.readElements();
             entities = ontologyHandler.readEntites();
             agents = ontologyHandler.readAgent();
             activities = ontologyHandler.readActivites();
 
-            Graph<String, String> g = new SparseMultigraph<String, String>();
+            MutableNetwork<String, String> g = NetworkBuilder.undirected().allowsParallelEdges(true).allowsSelfLoops(true).build();
             ArrayList<String> color_red=new ArrayList<>();
             for (Entity entity : entities) {
                 if(withSearch){
                     if(entity.getId().contains(searchtext.getText())||(entity.getName().contains(searchtext.getText()))){
-                        g.addVertex(entity.getId()+"*");
+                        g.addNode(entity.getId()+"*");
                         color_red.add(entity.getId());
                     }
                     else {
-                        g.addVertex(entity.getId());
+                        g.addNode(entity.getId());
                     }
 
                 }else {
-                    g.addVertex(entity.getId());
+                    g.addNode(entity.getId());
                 }
             }
             for (Agent agent : agents) {
                 if(withSearch){
                     if(agent.getId().contains(searchtext.getText())||(agent.getDetail().contains(searchtext.getText()))){
-                        g.addVertex(agent.getId()+"*");
+                        g.addNode(agent.getId()+"*");
                         color_red.add(agent.getId());
                     }else {
-                        g.addVertex(agent.getId());
+                        g.addNode(agent.getId());
                     }
 
 
                 }else {
-                    g.addVertex(agent.getId());
+                    g.addNode(agent.getId());
                 }
             }
             for (Activity activity : activities) {
@@ -981,67 +1064,73 @@ public class Controller implements Initializable {
                             ||(activity.getCommand().contains(searchtext.getText()))
                             ||activity.getStartTime().toString().contains(searchtext.getText())
                             ||activity.getEndTime().toString().contains(searchtext.getText())){
-                        g.addVertex(activity.getId()+"*");
+                        g.addNode(activity.getId()+"*");
                         color_red.add(activity.getId());
                     }else {
-                        g.addVertex(activity.getId());
+                        g.addNode(activity.getId());
                     }
 
                 }else {
-                    g.addVertex(activity.getId());
+                    g.addNode(activity.getId());
                 }
             }
             int count = 0;
             for (WasAssociatedWith wasAssociatedWith : ontologyHandler.readWasAssociatedWith()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasAssociatedWith-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasAssociatedWith.getActivity().getId())?wasAssociatedWith.getActivity().getId()+"*":wasAssociatedWith.getActivity().getId(),
-                        color_red.contains(wasAssociatedWith.getAgent().getId())?wasAssociatedWith.getAgent().getId()+"*":wasAssociatedWith.getAgent().getId(), EdgeType.UNDIRECTED);
+                        color_red.contains(wasAssociatedWith.getAgent().getId())?wasAssociatedWith.getAgent().getId()+"*":wasAssociatedWith.getAgent().getId(),
+                        "wasAssociatedWith-" + count);
                 count++;
             }
             for (WasAttributedTo wasAttributedTo : ontologyHandler.readWasAttributedTo()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasAttributedTo-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasAttributedTo.getAgent().getId())?wasAttributedTo.getAgent().getId()+"*":wasAttributedTo.getAgent().getId(),
-                        color_red.contains(wasAttributedTo.getEntity().getId())?wasAttributedTo.getEntity().getId()+"*":wasAttributedTo.getEntity().getId(), EdgeType.UNDIRECTED);
+                        color_red.contains(wasAttributedTo.getEntity().getId())?wasAttributedTo.getEntity().getId()+"*":wasAttributedTo.getEntity().getId(),
+                        "wasAttributedTo-" + count);
                 count++;
             }
             for (WasDerivedFrom wasDerivedFrom : ontologyHandler.readWasDerivedFrom()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasDerivedFrom-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasDerivedFrom.getGeneratedEntity().getId())?wasDerivedFrom.getGeneratedEntity().getId()+"*":wasDerivedFrom.getGeneratedEntity().getId(),
-                        color_red.contains(wasDerivedFrom.getUsedEntity().getId())?wasDerivedFrom.getUsedEntity().getId()+"*":wasDerivedFrom.getUsedEntity().getId(), EdgeType.UNDIRECTED);
+                        color_red.contains(wasDerivedFrom.getUsedEntity().getId())?wasDerivedFrom.getUsedEntity().getId()+"*":wasDerivedFrom.getUsedEntity().getId(),
+                        "wasDerivedFrom-" + count);
                 count++;
             }
 
             for (WasGeneratedBy wasGeneratedBy : ontologyHandler.readWasGeneratedBy()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasGeneratedBy-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasGeneratedBy.getActivity().getId())?wasGeneratedBy.getActivity().getId()+"*":wasGeneratedBy.getActivity().getId(),
-                        color_red.contains(wasGeneratedBy.getEntity().getId())?wasGeneratedBy.getEntity().getId()+"*":wasGeneratedBy.getEntity().getId(), EdgeType.UNDIRECTED);
+                        color_red.contains(wasGeneratedBy.getEntity().getId())?wasGeneratedBy.getEntity().getId()+"*":wasGeneratedBy.getEntity().getId(),
+                        "wasGeneratedBy-" + count);
                 count++;
             }
             for (WasInformedBy wasInformedBy : ontologyHandler.readWasInformedBy()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasInformedBy-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasInformedBy.getInformant().getId())?wasInformedBy.getInformant().getId()+"*":wasInformedBy.getInformant().getId(),
-                        color_red.contains(wasInformedBy.getInformed().getId())?wasInformedBy.getInformed().getId()+"*":wasInformedBy.getInformed().getId(),EdgeType.UNDIRECTED);
+                        color_red.contains(wasInformedBy.getInformed().getId())?wasInformedBy.getInformed().getId()+"*":wasInformedBy.getInformed().getId(),
+                        "wasInformedBy-" + count);
                 count++;
             }
             for (WasRevisonOf wasRevisonOf : ontologyHandler.readWasRevisonOf()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("wasRevisonOf-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(wasRevisonOf.getGeneratedEntity().getId())?wasRevisonOf.getGeneratedEntity().getId()+"*":wasRevisonOf.getGeneratedEntity().getId(),
                         color_red.contains(wasRevisonOf.getUsedEntity().getId())?wasRevisonOf.getUsedEntity().getId()+"*":wasRevisonOf.getUsedEntity().getId(),
-                        EdgeType.UNDIRECTED);
+                        "wasRevisonOf-" + count
+                       );
                 count++;
             }
             for (Used used : ontologyHandler.readUsed()) {
 
-                ((SparseMultigraph<String, String>) g).addEdge("used-" + count,
+                ((MutableNetwork<String, String>) g).addEdge(
                         color_red.contains(used.getActivity().getId())?used.getActivity().getId()+"*":used.getActivity().getId(),
                         color_red.contains(used.getEntity().getId())?used.getEntity().getId()+"*":used.getEntity().getId(),
-                        EdgeType.UNDIRECTED);
+                        "used-" + count);
                 count++;
             }
             return g;
@@ -1053,16 +1142,18 @@ public class Controller implements Initializable {
             @Override
             public Paint apply(@NullableDecl String s) {
                 if(s.contains("*")){
-                    return new java.awt.Color(252, 51, 51);
-                } else if(s.contains("Activity")) {
-                    return new java.awt.Color(102, 178, 255);
+                    return new java.awt.Color(250, 237, 38);
+                } else if(s.contains("#")) {
+                    return new java.awt.Color(90, 85, 96);
                 } else if (s.contains("Agent")) {
-                    return new java.awt.Color(255, 153, 204);
+                    return new java.awt.Color(157, 141, 143);
                 } else {
-                    return new java.awt.Color(153, 153, 255);
+                    return new java.awt.Color(155, 120, 111);
                 }
             }
         }
+
+
 
         public class ToStringLabeller implements Function<String, String> {
 
@@ -1073,37 +1164,44 @@ public class Controller implements Initializable {
             }
         }
 
-        class TestGraphMouseListener<N> implements GraphMouseListener<N> {
+        class TestGraphMouseListener implements Function<String, Stroke> {
+            protected PickedInfo<String> pi;
+            private String selected="";
+            public TestGraphMouseListener(PickedState<String> pvs) {
+                this.pi=pvs;
+            }
 
-            public void graphClicked(N v, java.awt.event.MouseEvent me) {
+            @Override
+           public Stroke apply(String v) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        String name=v.toString();
-                        if(name.contains("*")){
-                            name=name.replace("*","");
-                        }
-                        if (name.contains("Activity")) {
-                            showDetail(searchOntology(name, 1));
-                        } else if (name.contains("Agent")) {
-                            showDetail(searchOntology(name, 3));
-                        } else {
-                            showDetail(searchOntology(name, 2));
+                        if (pi.isPicked(v)) {
+                            String name = v.toString();
+                            if (name.contains("*")) {
+                                name = name.replace("*", "");
+                            }
+
+                            if(!selected.equals(name)) {
+                                int showDetail = createConfirmation(name, "Show Detail?");
+                                selected = name;
+                                if (showDetail == 1) {
+                                    if (name.contains("#")) {
+                                        showDetail(searchOntology(name, 1));
+                                    } else if (name.contains("Agent")) {
+                                        showDetail(searchOntology(name, 3));
+                                    } else {
+                                        showDetail(searchOntology(name, 2));
+                                    }
+                                }
+                            }
                         }
                     }
                 });
+                return new BasicStroke(0);
             }
 
 
-            @Override
-            public void graphPressed(N n, java.awt.event.MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void graphReleased(N n, java.awt.event.MouseEvent mouseEvent) {
-
-            }
         }
 
 

@@ -1,6 +1,7 @@
 package at.ac.tuwien.ifs.prosci.graphvisualization.provo;
 
 import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
+import at.ac.tuwien.ifs.prosci.graphvisualization.provo.model.ProvoEntitiy;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -10,12 +11,13 @@ import org.openprovenance.prov.xml.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import at.ac.tuwien.ifs.prosci.graphvisualization.provo.model.ProvoEntitiy;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,8 +84,7 @@ public class OntologyCreator {
 
                 File subFile = new File(log + f);
                 BufferedReader reader = new BufferedReader(new FileReader(trace + "/systeminfo/" + f + ".txt"));
-                String name = reader.readLine();
-                String label = name + "\n";
+                String label = new String(Files.readAllBytes(Paths.get(trace + "/systeminfo/" + f + ".txt")));
                 if (agent != null) {
                     String processId = getProcessorId(reader);
                     if (!agent.getId().equals(processId)) {
@@ -152,7 +153,7 @@ public class OntologyCreator {
                                 }
 
                                 command = matcher.group(1);
-                                activity = createActivity(commandStartAt+" "+geTimePoint(line), command);
+                                activity = createActivity(commandStartAt+" "+geTimePoint(line), command, currentVerion);
                                 createActivityAssociatedWith(agent, f, activity);
                             }
 
@@ -163,7 +164,7 @@ public class OntologyCreator {
                                     if (matcher.find()) {
                                         String mat = matcher.group(1);
                                         if (!entities_from.containsKey(mat)) {
-                                            Entity entity = getEntityFromList(mat, currentVerion);
+                                            Entity entity = getEntityFromList(mat, currentVerion, true);
                                             if(entity!=null) {
                                                 entities_from.put(mat, entity);
                                             }
@@ -174,12 +175,12 @@ public class OntologyCreator {
 
                             } else if (line.contains("write(")) {
                                 if (line.contains(input)) {
-                                    pattern = Pattern.compile("write\\(.?<(.*?/input/.*?)>,");
+                                    pattern = Pattern.compile("write\\(.*?<(.*?/input/.*?)>,");
                                     matcher = pattern.matcher(line);
                                     if (matcher.find()) {
                                         String mat = matcher.group(1);
                                         if (!entities_to.containsKey(mat)) {
-                                            Entity entity = getEntityFromList(mat, currentVerion);
+                                            Entity entity = getEntityFromList(mat, currentVerion, false);
                                             if(entity!=null) {
                                                 entities_to.put(mat, entity);
                                             }
@@ -195,7 +196,7 @@ public class OntologyCreator {
                                     if (matcher.find()) {
                                         String mat = matcher.group(1);
                                         if (!entities_delete.containsKey(mat)) {
-                                            Entity entity = getEntityFromList(mat, lastVersion);
+                                            Entity entity = getEntityFromList(mat, lastVersion,true);
                                             entities_delete.put(mat, entity);
 
                                         }
@@ -204,7 +205,18 @@ public class OntologyCreator {
                             }
 
                         }
+                        if(activity.getId().toString().contains("sed")){
+                            Pattern p=Pattern.compile("\"(.*?)\"");
+                            Matcher m=p.matcher(activity.getLabel().toString());
+                            while (m.find()){
+                              if(m.group(1).equals("-i")){
+                                  String filename=entities_from.keySet().iterator().next();
+                                  entities_to.put(filename, getEntityFromList(filename, currentVerion, false));
+                                  break;
+                              }
+                            }
 
+                        }
                         createActivityRelated(activity, agent);
                         entities_delete.clear();
                         entities_to.clear();
@@ -303,7 +315,7 @@ public class OntologyCreator {
         }
     }
 
-    private Activity createActivity(String commandStartAt,String command) throws ParseException, DatatypeConfigurationException {
+    private Activity createActivity(String commandStartAt,String command, String currentVerion) throws ParseException, DatatypeConfigurationException {
 
         XMLGregorianCalendar xmlStartDate = getTime(commandStartAt);
         Activity activity = null;
@@ -315,8 +327,12 @@ public class OntologyCreator {
 
         Pattern p=Pattern.compile("\"(.*?)\"");
         Matcher m=p.matcher(command);
+        String startCommand="";
+        if (m.find()){
+            startCommand=m.group(1);
+        }
 
-        activity = pFactory.newActivity(qn((m.find()?m.group(1):"")+"-"+UUID.randomUUID().toString().split("-")[1]),command.substring(1,command.length()-1));
+        activity = pFactory.newActivity(qn(startCommand+"-"+commandStartAt.replace(":",".").replace(" ",".").substring(5,23)),command.substring(1,command.length()-1));
         activity.setStartTime(xmlStartDate);
 
         statementOrBundles.put(activity.getId().toString(), activity);
@@ -325,8 +341,8 @@ public class OntologyCreator {
     }
 
     private XMLGregorianCalendar getTime(String time) throws DatatypeConfigurationException, ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
-        time = time.split("\\.")[0];
+        DateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss.SSS");
+        time = time.substring(0,time.length()-3);
 try {
     Date startDate = format.parse(time);
 
@@ -349,14 +365,6 @@ try {
     public void closingBanner() {
         statementOrBundles.clear();
         activitySet.clear();
-        System.out.println("");
-        System.out.println("*************************");
-    }
-
-    public void openingBanner() {
-        System.out.println("*************************");
-        System.out.println("* Converting document  ");
-        System.out.println("*************************");
     }
 
 
@@ -446,10 +454,10 @@ try {
         }
     }
 
-    private Entity getEntityFromList(String mat, String currentVerion){
+    private Entity getEntityFromList(String mat, String currentVerion, boolean isfrom){
 
         Entity entity = findEntityInEntities(versionChecker.getIndexOfVersionID(currentVerion), mat.substring(
-               input.length()));
+               input.length()), isfrom);
 
         if (entity != null) {
             return entity;
@@ -461,20 +469,40 @@ try {
     }
 
 
-    private Entity findEntityInEntities(int commitIndex, String path) {
+    private Entity findEntityInEntities(int commitIndex, String path, boolean isfrom) {
         Entity entity = null;
+        Entity entityPreseved = null;
 
         List<ProvoEntitiy> provoEntitiys=entities.get(path);
         if(provoEntitiys!=null) {
-            for (int i = provoEntitiys.size() - 1; i >= 0; i--) {
-                int currentCommitIndex = versionChecker.getIndexOfVersionID(provoEntitiys.get(i).getCommitID());
-                if (currentCommitIndex <= commitIndex) {
-                    entity = provoEntitiys.get(i).getEntity();
-                    return entity;
+            if(isfrom) {
+                for (int i = provoEntitiys.size() - 1; i >= 0; i--) {
+                    int currentCommitIndex = versionChecker.getIndexOfVersionID(provoEntitiys.get(i).getCommitID());
+                    if (currentCommitIndex <= commitIndex) {
+                        if(currentCommitIndex==commitIndex){
+                            entityPreseved=provoEntitiys.get(i).getEntity();
+                        }
+                        else {
+                            entity = provoEntitiys.get(i).getEntity();
+                            return entity;
+                        }
+                    }
+                }
+            }
+            else{
+                for (int i = 0; i <= provoEntitiys.size() - 1; i++) {
+                    int currentCommitIndex = versionChecker.getIndexOfVersionID(provoEntitiys.get(i).getCommitID());
+
+                    if (currentCommitIndex >= commitIndex) {
+                        entity = provoEntitiys.get(i).getEntity();
+                        return entity;
+                    }else{
+                        entityPreseved=provoEntitiys.get(i).getEntity();
+                    }
                 }
             }
         }
-        return entity;
+        return entityPreseved;
     }
 
     private String getCommandLineRecord(String filename, String logid, int retry) throws IOException, InterruptedException {
@@ -518,7 +546,7 @@ try {
     private String contructePath(String path, int version){
         String[] pathString= path.split("\\.");
 
-        String pathNew=pathString[0]+"_v"+version+"."+pathString[1];
+        String pathNew=path+".v"+version;
         return pathNew;
 
 

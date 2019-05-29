@@ -21,10 +21,6 @@ public class ProvoEntitiy {
         return entity;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
-
     public int getVersion() {
         return version;
     }
@@ -43,9 +39,5 @@ public class ProvoEntitiy {
 
     public String getCommitID() {
         return commitID;
-    }
-
-    public void setCommitID(String commitID) {
-        this.commitID = commitID;
     }
 }

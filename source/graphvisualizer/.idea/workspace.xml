@@ -6,6 +6,7 @@
       <change afterPath="$PROJECT_DIR$/../filemonitor/src/main/resources/log4j2.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jung_algorithms1.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/provstarter.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/provstarter_1_0_0.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
@@ -31,7 +32,6 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/path_mapping.properties" afterDir="false" />
@@ -64,8 +64,10 @@
       <change beforePath="$PROJECT_DIR$/../provstarter/src/main/java/at/ac/tuwien/ifs/prosci/provstarter/provstarter/entities/StatusCode.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../provstarter/src/main/java/at/ac/tuwien/ifs/prosci/provstarter/provstarter/systemtrace/InfoCollector.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../provstarter/src/main/java/at/ac/tuwien/ifs/prosci/provstarter/provstarter/systemtrace/LogCreator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../provstarter/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../provstarter/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../provstarter/src/main/resources/log4j2.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../provstarter/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../provstarter/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../provstarter/src/main/resources/path_mapping.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../provstarter/src/main/resources/path_mapping.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.acn" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.acn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.acr" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.acr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.alg" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.alg" afterDir="false" />
@@ -84,7 +86,7 @@
       <change beforePath="$PROJECT_DIR$/../thesis/example.log" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.lot" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.lot" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.out" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../thesis/example.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../thesis/example.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/example.toc" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/example.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../thesis/graphics/componentsOfTheProsci.png" beforeDir="false" afterPath="$PROJECT_DIR$/../thesis/graphics/componentsOfTheProsci.png" afterDir="false" />
@@ -112,100 +114,79 @@
     <session id="-650670451">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
-          <entry key="project.open.time.13" value="1" />
+          <entry key="project.closed" value="30" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.19" value="3" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.20" value="4" />
+          <entry key="project.open.time.2" value="2" />
+          <entry key="project.open.time.20" value="5" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.27" value="1" />
-          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.3" value="4" />
+          <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.31" value="2" />
           <entry key="project.open.time.32" value="3" />
           <entry key="project.open.time.34" value="2" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.36" value="1" />
+          <entry key="project.open.time.38" value="1" />
           <entry key="project.open.time.39" value="1" />
-          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.4" value="3" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="38" />
+          <entry key="project.opened" value="47" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="fxml" value="5" />
-          <entry key="java" value="2688" />
-          <entry key="properties" value="6" />
+          <entry key="fxml" value="9" />
+          <entry key="java" value="5013" />
+          <entry key="properties" value="22" />
           <entry key="xml" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2688" />
-          <entry key="Properties" value="6" />
-          <entry key="XML" value="33" />
+          <entry key="JAVA" value="5013" />
+          <entry key="Properties" value="22" />
+          <entry key="XML" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="2" />
-          <entry key="css" value="1" />
-          <entry key="fxml" value="4" />
-          <entry key="java" value="115" />
-          <entry key="properties" value="8" />
-          <entry key="xml" value="7" />
+          <entry key="css" value="3" />
+          <entry key="fxml" value="5" />
+          <entry key="java" value="172" />
+          <entry key="properties" value="10" />
+          <entry key="xml" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="2" />
-          <entry key="CSS" value="1" />
-          <entry key="JAVA" value="115" />
-          <entry key="Properties" value="8" />
-          <entry key="XML" value="11" />
+          <entry key="CSS" value="3" />
+          <entry key="JAVA" value="172" />
+          <entry key="Properties" value="10" />
+          <entry key="XML" value="14" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5474">
-              <caret line="345" selection-start-line="345" selection-end-line="345" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GUIConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49">
-              <caret line="640" column="43" selection-start-line="640" selection-start-column="43" selection-end-line="640" selection-end-column="43" />
+            <state relative-caret-position="184">
+              <caret line="150" column="14" lean-forward="true" selection-start-line="150" selection-start-column="14" selection-end-line="150" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -214,10 +195,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/collections/transformation/SortedList.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/prosci.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="53" column="19" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
+            <state relative-caret-position="1666">
+              <caret line="98" column="42" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/path_mapping.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -225,8 +230,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+            <state relative-caret-position="543">
+              <caret line="68" column="105" selection-start-line="68" selection-start-column="105" selection-end-line="68" selection-end-column="105" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -253,20 +258,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/path_mapping.properties">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="629">
+              <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="24" column="26" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -285,17 +292,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ongraf</find>
-      <find>GraphDrawing</find>
-      <find>path_mapping</find>
-      <find>firstCommitID = revCommits.get(i).getName();</find>
-      <find>versionChecker</find>
-      <find>rerun</find>
-      <find>_</find>
-      <find>_v</find>
       <find>propertiesl</find>
       <find>ontologyHandler</find>
-      <find>entities_to</find>
       <find>length</find>
       <find>logg</find>
       <find>Qualified name</find>
@@ -304,14 +302,26 @@
       <find>agentsMap</find>
       <find>onMouseClicked</find>
       <find>listView</find>
-      <find>LOGGER</find>
       <find>logger</find>
       <find>resto</find>
-      <find>entities</find>
       <find>pFactory.newEn</find>
       <find>prosciproperties</find>
       <find>prosciProperties</find>
       <find>list</find>
+      <find>_v</find>
+      <find>label</find>
+      <find>Paint</find>
+      <find>activitySet</find>
+      <find>compare</find>
+      <find>wasin</find>
+      <find>entities</find>
+      <find>sed</find>
+      <find>&quot;sed</find>
+      <find>entities_to</find>
+      <find>LOGGER</find>
+      <find>system.out</find>
+      <find>search</find>
+      <find>searchbutton</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -336,17 +346,30 @@
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j2.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/prosci.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Entity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GUIConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j2.xml" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/path_mapping.properties" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Agent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Entity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Ontology.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Used.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAssociatedWith.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAttributedTo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasDerivedFrom.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasGeneratedBy.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasInformedBy.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasRevisonOf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/CommandExtracter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/prosci.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java" />
       </list>
     </option>
@@ -387,45 +410,14 @@
           <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
           <item name="org.springframework.boot:spring-boot-starter:1.5.6.RELEASE" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
         </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="graphvisualizer" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="net.sf.jung:jung-api:2.1.1" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="graphvisualizer" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="net.sf.jung:jung-visualization:2.1.1" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="graphvisualizer" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="net.sf.jung:jung-graph-impl:2.1.1" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="graphvisualizer" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="net.sf.jung:jung-algorithms:2.1.1" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="graphvisualizer" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="net.sf.jung:jung-io:2.1.1" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
       </expand>
       <select />
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2560" />
-    <option name="y" value="26" />
-    <option name="width" value="1280" />
-    <option name="height" value="774" />
+    <option name="y" value="25" />
+    <option name="width" value="1920" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -434,6 +426,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -528,7 +521,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -541,13 +533,13 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558340795790" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559058127646" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.16818774" />
+    <property name="project.structure.side.proportion" value="0.32438478" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
@@ -664,17 +656,25 @@
       <workItem from="1558341720672" duration="1675000" />
       <workItem from="1558343740322" duration="767000" />
       <workItem from="1558354236752" duration="606000" />
+      <workItem from="1558532700023" duration="594000" />
+      <workItem from="1558534402246" duration="23187000" />
+      <workItem from="1558642920435" duration="4718000" />
+      <workItem from="1558684677184" duration="20737000" />
+      <workItem from="1558725465920" duration="2918000" />
+      <workItem from="1558890749166" duration="11308000" />
+      <workItem from="1558937468133" duration="36104000" />
+      <workItem from="1559127737462" duration="887000" />
+      <workItem from="1559129004609" duration="932000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111208000" />
+    <option name="totallyTimeSpent" value="212593000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2560" y="26" width="1280" height="774" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.46849757" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17305644" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -683,16 +683,16 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Statistic" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.19424461" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.6012759" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.54405284" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.42951542" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.50770926" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.44493392" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50493824" side_tool="true" weight="0.3389694" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.26762116" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.15528634" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.26762116" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.45741326" />
       <window_info anchor="bottom" content_ui="combo" id="Run Dashboard" order="12" sideWeight="0.49506173" weight="0.31595093" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="14" weight="0.32929516" />
@@ -700,7 +700,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven Projects" order="4" weight="0.22078969" />
+      <window_info anchor="right" id="Maven Projects" order="4" weight="0.25490198" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Theme Preview" order="7" />
@@ -753,21 +753,33 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java</url>
-          <line>941</line>
+          <line>1023</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java</url>
-          <line>55</line>
+          <line>47</line>
           <properties />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java</url>
-          <line>879</line>
+          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
+          <line>156</line>
           <properties />
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java</url>
+          <line>178</line>
+          <properties />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java</url>
+          <line>65</line>
+          <properties />
+          <option name="timeStamp" value="95" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -775,291 +787,31 @@
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="list.getItems" />
         <watch expression="entities_from" />
+        <watch expression="name.substring(0,name.lastIndexOf(&quot;\\.&quot;))" />
+        <watch expression="name.lastIndexOf(&quot;\\.&quot;)" />
+        <watch expression="name.substring(0,name.lastIndexOf(&quot;.&quot;))+&quot;_&quot;+idList[idList.length-1]+&#10;                            name.substring(name.lastIndexOf(&quot;.&quot;))" />
+        <watch expression="entities.get(2).name" />
+        <watch expression="statementOrBundles" />
+        <watch expression="readWasInformedBy" />
+        <watch expression="activitySet" />
+        <watch expression="e1.getStartTime().compare(e2.getStartTime())" />
+        <watch expression="entities" />
+        <watch expression="m.find()" />
+        <watch expression="m.group(1)" />
+        <watch expression="m.group(1)" />
+        <watch expression="t" />
+        <watch expression="m.matches()" />
+        <watch expression="activity.getLabel().contains(&quot;\&quot;sed\&quot;, \&quot;-i\&quot;, &quot;)" />
+        <watch expression="currentCommitIndex" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/Configuration.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/exception/ProvException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/exception/RepositoryException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasDerivedFrom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasGeneratedBy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasInformedBy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasRevisonOf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Document.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/ObjectFactory2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="265" selection-start-line="265" selection-end-line="265" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/at/ac/tuwien/ifs/prosci/provstarter/1.0.0/provstarter-1.0.0.jar!/at/ac/tuwien/ifs/prosci/provstarter/helper/ProsciProperties.class" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/internal/storage/file/WindowCursor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
-          <caret line="176" column="62" selection-start-line="176" selection-start-column="62" selection-end-line="176" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/awt/HeadlessToolkit.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3111">
-          <caret line="285" column="38" selection-start-line="285" selection-start-column="38" selection-end-line="285" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5907">
-          <caret line="197" selection-start-line="197" selection-end-line="197" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4216">
-          <caret line="269" selection-start-line="269" selection-end-line="269" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAttributedTo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/api/LogCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="149" column="61" selection-start-line="149" selection-start-column="57" selection-end-line="149" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/lib/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/api/Git.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3060">
-          <caret line="240" selection-start-line="240" selection-end-line="240" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-model/0.7.3/prov-model-0.7.3-sources.jar!/org/openprovenance/prov/model/ProvFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="724">
-          <caret line="395" column="20" selection-start-line="395" selection-start-column="20" selection-end-line="395" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/control/TextInputControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="347" column="35" selection-start-line="347" selection-start-column="35" selection-end-line="347" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/prosci.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="86" column="52" selection-start-line="86" selection-start-column="52" selection-end-line="86" selection-end-column="52" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-graph-impl/2.1.1/jung-graph-impl-2.1.1-sources.jar!/edu/uci/ics/jung/graph/AbstractGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
-          <caret line="57" column="33" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54549">
-          <caret line="1773" selection-start-line="1773" selection-end-line="1773" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/scene/control/Labeled.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2673">
-          <caret line="145" column="35" selection-start-line="145" selection-start-column="35" selection-end-line="145" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/beans/binding/StringExpression.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-end-line="2" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Ontology.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Used.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAssociatedWith.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/exception/TechnicalException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/CommandExtracter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.properties" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5474">
-          <caret line="345" selection-start-line="345" selection-end-line="345" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GUIConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1070,13 +822,288 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Entity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+        <state relative-caret-position="8184">
+          <caret line="269" selection-start-line="269" selection-end-line="269" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/api/Git.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/4.8.0.201706111038-r/org.eclipse.jgit-4.8.0.201706111038-r-sources.jar!/org/eclipse/jgit/lib/RepositoryCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5508">
+          <caret line="398" selection-start-line="398" selection-end-line="398" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar!/com/google/common/base/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/awt/Font.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="223" column="13" selection-start-line="223" selection-start-column="13" selection-end-line="223" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-visualization/2.1.1/jung-visualization-2.1.1-sources.jar!/edu/uci/ics/jung/visualization/renderers/BasicVertexLabelRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="82" column="53" selection-start-line="82" selection-start-column="53" selection-end-line="82" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-algorithms/2.1.1/jung-algorithms-2.1.1-sources.jar!/edu/uci/ics/jung/algorithms/layout/AbstractLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2743">
+          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/jung-master/jung-visualization/src/main/java/edu/uci/ics/jung/visualization/renderers/DefaultNodeLabelRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="54" column="23" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/javax/swing/JComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43724">
+          <caret line="2700" column="16" selection-start-line="2700" selection-start-column="16" selection-end-line="2700" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar!/com/google/common/graph/ConfigurableMutableNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar!/com/google/common/base/Preconditions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7480">
+          <caret line="454" selection-start-line="454" selection-end-line="454" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="78" column="20" selection-start-line="78" selection-start-column="20" selection-end-line="78" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-algorithms/2.1.1/jung-algorithms-2.1.1-sources.jar!/edu/uci/ics/jung/algorithms/layout/FRLayout2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="76" column="13" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-model/0.7.3/prov-model-0.7.3-sources.jar!/org/openprovenance/prov/model/Namespace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4216">
+          <caret line="275" selection-start-line="275" selection-end-line="275" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/QualifiedName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2278">
+          <caret line="154" selection-start-line="154" selection-end-line="154" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-xml/0.7.3/prov-xml-0.7.3-sources.jar!/org/openprovenance/prov/xml/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="95" selection-start-line="95" selection-end-line="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/openprovenance/prov/prov-model/0.7.3/prov-model-0.7.3-sources.jar!/org/openprovenance/prov/model/ProvFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6001">
+          <caret line="396" selection-start-line="396" selection-end-line="396" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jung/jung-visualization/2.1.1/jung-visualization-2.1.1-sources.jar!/edu/uci/ics/jung/visualization/PluggableRenderContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3128">
+          <caret line="245" column="28" selection-start-line="245" selection-start-column="23" selection-end-line="245" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2668">
+          <caret line="2584" selection-start-line="2584" selection-end-line="2584" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Ontology.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/Used.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAssociatedWith.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasAttributedTo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasDerivedFrom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasGeneratedBy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasInformedBy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/entities/WasRevisonOf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/exception/TechnicalException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/CommandExtracter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/test.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/model/ProvoEntitiy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/jung-master/jung-visualization/src/main/java/edu/uci/ics/jung/visualization/VisualizationViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="156" column="53" selection-start-line="156" selection-start-column="42" selection-end-line="156" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/awt/event/KeyListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/OntologyCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9010">
+          <caret line="530" column="17" lean-forward="true" selection-start-line="530" selection-start-column="17" selection-end-line="530" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2867#2868#0" expanded="true" />
+            <element signature="e#2929#2930#0" expanded="true" />
+            <element signature="e#23480#23481#0" expanded="true" />
+            <element signature="e#23555#23556#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/prosci.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="98" column="42" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="42" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/path_mapping.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1094,26 +1121,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/path_mapping.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/ProsciProperties.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/provo/VersionChecker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="629">
+          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/helper/Trace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/OntologyHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="68" column="105" selection-start-line="68" selection-start-column="105" selection-end-line="68" selection-end-column="105" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/GraphvisualizationStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/ac/tuwien/ifs/prosci/graphvisualization/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="640" column="43" selection-start-line="640" selection-start-column="43" selection-end-line="640" selection-end-column="43" />
+        <state relative-caret-position="184">
+          <caret line="150" column="14" lean-forward="true" selection-start-line="150" selection-start-column="14" selection-end-line="150" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1129,7 +1177,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.32438478" />
               </list>
             </option>
           </splitter-proportions>
@@ -1141,7 +1189,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.32438478" />
               </list>
             </option>
           </splitter-proportions>
@@ -1176,7 +1224,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.16818774" />
+                <option value="0.32438478" />
               </list>
             </option>
           </splitter-proportions>
@@ -1196,11 +1244,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>provstarter</last-edited>
+          <last-edited>jung-algorithms1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.3644068" />
+                <option value="0.32438478" />
               </list>
             </option>
           </splitter-proportions>

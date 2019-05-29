@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class VersionChecker {
@@ -55,12 +57,7 @@ public class VersionChecker {
                     .setNewTree(newTreeIter)
                     .setOldTree(oldTreeIter)
                     .call();
-
-
-
         }
-
-
         return diffs;
 
     }
@@ -96,6 +93,9 @@ public class VersionChecker {
 
 
         String dest=prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.version")+fileName;
+        if(id.contains("/")){
+            Files.createDirectories(Paths.get(prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.version")+id.substring(0,fileName.lastIndexOf("/"))));
+        }
         OutputStream out = new FileOutputStream(dest);
         loader.copyTo(out);
         out.close();

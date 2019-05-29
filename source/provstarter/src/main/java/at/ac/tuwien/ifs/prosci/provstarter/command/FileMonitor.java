@@ -13,8 +13,12 @@ public class FileMonitor {
 
     private Process process;
 
-    private boolean isRunning;
+    private boolean isRunning=false;
     public void start() throws IOException {
+        if(isRunning){
+            process.destroy();
+            LOGGER.info("stop filemonitoring successfully.");
+        }
         Runtime runtime = Runtime.getRuntime();
         String[] fileMonitor_commands = {"bash", "-c", "java -jar filemonitor-1.0.2.jar"};
         process = runtime.exec(fileMonitor_commands);

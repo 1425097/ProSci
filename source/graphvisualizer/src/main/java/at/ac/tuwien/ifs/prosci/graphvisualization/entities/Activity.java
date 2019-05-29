@@ -11,8 +11,6 @@ public class Activity implements Ontology {
     private Date endTime;
     private File sysInfos;
 
-    public Activity() {
-    }
 
     public Activity(String id, String command, String version, Date startTime, Date endTime, File sysInfos) {
         this.id = id;
@@ -28,16 +26,8 @@ public class Activity implements Ontology {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getCommand() {
         return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     @Override
@@ -53,23 +43,8 @@ public class Activity implements Ontology {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
     public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public File getSysInfos() {
-        return sysInfos;
-    }
-
-    public void setSysInfos(File sysInfos) {
-        this.sysInfos = sysInfos;
-    }
 }

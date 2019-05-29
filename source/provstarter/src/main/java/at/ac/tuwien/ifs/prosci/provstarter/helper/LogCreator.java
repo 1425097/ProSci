@@ -21,8 +21,6 @@ public class LogCreator {
         file = file + "/"+id+".txt";
         infoCollector.setFile(new File(file));
 
-        // Options: ERROR > WARN > INFO > DEBUG > TRACE
-
         logger.info("Initializing System...");
         SystemInfo si = new SystemInfo();
 
@@ -45,34 +43,8 @@ public class LogCreator {
         logger.info("Checking CPU...");
         infoCollector.printCpu(hal.getProcessor());
 
-        logger.info("Checking Processes...");
-        infoCollector.printProcesses(os, hal.getMemory());
-
-        logger.info("Checking Sensors...");
-        infoCollector.printSensors(hal.getSensors());
-
-        logger.info("Checking Power sources...");
-        infoCollector.printPowerSources(hal.getPowerSources());
-
         logger.info("Checking Disks...");
         infoCollector.printDisks(hal.getDiskStores());
-
-        logger.info("Checking File System...");
-        infoCollector.printFileSystem(os.getFileSystem());
-
-        logger.info("Checking Network interfaces...");
-        infoCollector.printNetworkInterfaces(hal.getNetworkIFs());
-
-        logger.info("Checking Network parameterss...");
-        infoCollector.printNetworkParameters(os.getNetworkParams());
-
-        // hardware: displays
-        logger.info("Checking Displays...");
-        infoCollector.printDisplays(hal.getDisplays());
-
-        // hardware: USB devices
-        logger.info("Checking USB Devices...");
-        infoCollector.printUsbDevices(hal.getUsbDevices(true));
 
         infoCollector.close();
 

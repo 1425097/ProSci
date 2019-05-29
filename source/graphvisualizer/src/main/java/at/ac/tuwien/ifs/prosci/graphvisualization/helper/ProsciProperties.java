@@ -25,7 +25,6 @@ public class ProsciProperties {
     }
 
     private void createPropertiesFile() {
-
         LOGGER.info("create procsi properties file:  " + (System.getProperty("user.home") + "/prosci.properties"));
         try {
             File file = new File(System.getProperty("user.home") + "/prosci.properties");

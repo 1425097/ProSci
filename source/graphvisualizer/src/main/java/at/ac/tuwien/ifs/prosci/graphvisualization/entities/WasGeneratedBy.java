@@ -10,22 +10,15 @@ public class WasGeneratedBy {
     }
 
     public WasGeneratedBy() {
-
     }
 
     public Entity getEntity() {
         return entity;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
 
     public Activity getActivity() {
         return activity;
     }
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
 }

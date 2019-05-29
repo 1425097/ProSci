@@ -13,15 +13,7 @@ public class WasInformedBy {
         return informed;
     }
 
-    public void setInformed(Activity informed) {
-        this.informed = informed;
-    }
-
     public Activity getInformant() {
         return informant;
-    }
-
-    public void setInformant(Activity informant) {
-        this.informant = informant;
     }
 }

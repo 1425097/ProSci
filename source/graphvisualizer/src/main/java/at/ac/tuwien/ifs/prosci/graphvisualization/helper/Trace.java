@@ -3,7 +3,6 @@ package at.ac.tuwien.ifs.prosci.graphvisualization.helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import at.ac.tuwien.ifs.prosci.graphvisualization.helper.ProsciProperties;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,23 +15,16 @@ import java.util.UUID;
 
 public class Trace{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    //@Autowired
-    //LogCreator logCreator;
+
     @Autowired
     private ProsciProperties prosciProperties;
 
     @Autowired
     private ResourceBundle path_mapping;
 
-
-
-
     public Process traceProcess(String command) throws IOException {
 
-
-
         UUID logId=UUID.randomUUID();
-
         Files.createDirectories(Paths.get(
                 prosciProperties.readProperties("workspace.current")
                         + path_mapping.getString("prosci.trace.log")+ "rerun"+logId.getLeastSignificantBits() ));
@@ -60,11 +52,9 @@ public class Trace{
         BufferedReader inputReader = new BufferedReader(input);
         String process_id = inputReader.readLine();
 
-
         String[] strace_commands = {"bash", "-c", ResourceBundle.getBundle("application").getString("strace") +
                 prosciProperties.readProperties("workspace.current") + path_mapping.getString("prosci.trace.log") +"rerun"+logId.getLeastSignificantBits()+ "/prosci_"+System.currentTimeMillis()+".log"};
         process = runtime.exec(strace_commands);
-
 
         return process;
 

@@ -13,10 +13,6 @@ public class WasAttributedTo {
         return entity;
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
-
     public Agent getAgent() {
         return agent;
     }

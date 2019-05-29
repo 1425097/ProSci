@@ -13,15 +13,8 @@ public class WasRevisonOf {
         return generatedEntity;
     }
 
-    public void setGeneratedEntity(Entity generatedEntity) {
-        this.generatedEntity = generatedEntity;
-    }
-
     public Entity getUsedEntity() {
         return usedEntity;
     }
 
-    public void setUsedEntity(Entity usedEntity) {
-        this.usedEntity = usedEntity;
-    }
 }

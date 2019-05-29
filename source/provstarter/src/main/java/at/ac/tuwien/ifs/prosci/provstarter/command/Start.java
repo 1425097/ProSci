@@ -22,6 +22,8 @@ public class Start {
     ProsciProperties prosciProperties;
     @Autowired
     LogCreator logCreator;
+    @Autowired
+    FileMonitor fileMonitor;
 
     private ResourceBundle path_mapping = ResourceBundle.getBundle("path_mapping");
 
@@ -41,6 +43,11 @@ public class Start {
                                 + path_mapping.getString("prosci.trace.systeminfo"),
                         xtermId.toString()
                 );
+
+                prosciProperties.setProperties(prosciProperties.readProperties("workspace.current")+".log", ""+xtermId);
+                prosciProperties.writeProsciProperties("current log directory");
+
+                fileMonitor.start();
 
                 Runtime runtime = Runtime.getRuntime();
 

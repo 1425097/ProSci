@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -84,7 +85,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <TextField fx:id="searchtext" prefHeight="48.0" prefWidth="578.0" />
-                        <JFXButton fx:id="searchbutton" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="48.0" prefWidth="210.0" text="Search" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
+                        <JFXButton fx:id="searchbutton" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="48.0" prefWidth="97.0" text="Search" textFill="#fffbfb" textOverrun="LEADING_ELLIPSIS">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -95,6 +96,12 @@
                               <FontAwesomeIconView fill="#fcf7f7" glyphName="SEARCH" size="20.0" />
                            </graphic>
                         </JFXButton>
+                        <VBox fx:id="modetype" prefHeight="48.0" prefWidth="128.0">
+                           <children>
+                              <RadioButton fx:id="picking" mnemonicParsing="false" text="Picking" textFill="#f8f0f0" />
+                              <RadioButton fx:id="transforming" mnemonicParsing="false" prefHeight="24.0" prefWidth="121.0" text="Transforming" textFill="#f5efef" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>

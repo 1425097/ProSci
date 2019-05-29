@@ -9,16 +9,8 @@ public class WasAssociatedWith {
         this.agent = agent;
     }
 
-    public WasAssociatedWith() {
-
-    }
-
     public Activity getActivity() {
         return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 
     public Agent getAgent() {
